@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".HomeActivity">
+
+    <RelativeLayout
+        android:layout_above="@+id/bottomBar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="80dp"
+            android:textSize="30sp"
+            android:id="@+id/activityTitle3"
+            android:textAlignment="center"/>
+
+
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/checkkkk"
+        android:layout_width="match_parent"
+        android:layout_height="84dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        android:orientation="horizontal">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_alignTop="@+id/btnPostdemande"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="-31dp"
+            android:autoText="false"
+            android:text="Je Cherche "
+            tools:layout_editor_absoluteY="15dp" />
+
+
+        <Spinner
+            android:id="@+id/grpsanguin_Text"
+            android:layout_width="107dp"
+            android:layout_height="wrap_content"
+
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="250dp"
+            android:layout_marginTop="12dp"
+            android:backgroundTint="@color/colorPrimaryDark2"
+            android:hint="Groupe sanguin"
+            android:inputType="textPersonName"
+            android:textColor="#6d6d6d" />
+
+
+
+        <Spinner
+            android:id="@+id/number_Text"
+            android:layout_width="107dp"
+            android:layout_height="wrap_content"
+
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="110dp"
+            android:layout_marginTop="12dp"
+            android:backgroundTint="@color/colorPrimaryDark2"
+            android:hint="Nombre de slots"
+            android:inputType="textPersonName"
+            android:textColor="#6d6d6d" />
+
+
+
+
+
+
+        <Spinner
+            android:id="@+id/region_Text"
+            android:layout_width="133dp"
+            android:layout_height="wrap_content"
+
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="62dp"
+            android:layout_marginTop="45dp"
+            android:backgroundTint="@color/colorPrimaryDark2"
+            android:hint="Région"
+            android:inputType="textPersonName"
+            android:textColor="#6d6d6d" />
+
+        <Button
+            android:id="@+id/btnPostdemande"
+            android:layout_width="wrap_content"
+            android:layout_height="37dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="43dp"
+            android:layout_marginEnd="47dp"
+            android:text="publier"
+            tools:layout_editor_absoluteY="15dp" />
+
+
+    </RelativeLayout>
+
+
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="wrap_content"
+        android:layout_height="379dp"
+        android:layout_below="@id/checkkkk"
+        android:layout_alignBottom="@+id/bottomBar"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="-2dp"
+        android:layout_marginBottom="49dp">
+
+    </ListView>
+
+
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/bottomBar"
+        android:layout_alignParentBottom="true">
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/bottomNavView_Bar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:menu="@menu/bottom_navigation_menu"
+        android:background="@android:color/darker_gray">
+
+
+    </android.support.design.widget.BottomNavigationView>
+    </RelativeLayout>
+        </RelativeLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

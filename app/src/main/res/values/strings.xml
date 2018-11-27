@@ -1,0 +1,72 @@
+<resources>
+    <string name="app_name">Bloodify</string>
+    <string-array name="grpsanguin">
+        <item>Groupe Sanguin</item>
+        <item>A+</item>
+        <item>A-</item>
+        <item>B+</item>
+        <item>B-</item>
+        <item>AB+</item>
+        <item>AB-</item>
+        <item>O+</item>
+        <item>O-</item>
+    </string-array>
+    <string-array name="Regions">
+        <item>Région</item>
+        <item>Ariana</item>
+        <item>Béja</item>
+        <item>Ben arous</item>
+        <item>Bizerte</item>
+        <item>Gabés</item>
+        <item>Gafsa</item>
+        <item>Jendouba</item>
+        <item>Kairouan</item>
+        <item>Kasserine</item>
+        <item>Kébili</item>
+        <item>Le Kéf</item>
+        <item>Mahdia</item>
+        <item>La manouba</item>
+        <item>Médenine</item>
+        <item>Monastir</item>
+        <item>Nabeul</item>
+        <item>Sfax</item>
+        <item>Sidi bouzid</item>
+        <item>Siliana</item>
+        <item>Sousse</item>
+        <item>Tataouine</item>
+        <item>Tozeur</item>
+        <item>Tunis</item>
+        <item>Zaghouan</item>
+    </string-array>
+
+    <string-array name="grpsanguin1">
+        <item>tous type</item>
+        <item>A+</item>
+        <item>A-</item>
+        <item>B+</item>
+        <item>B-</item>
+        <item>AB+</item>
+        <item>AB-</item>
+        <item>O+</item>
+        <item>O-</item>
+    </string-array>
+    <string-array name="numbers">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>plus que 10</item>
+        <item>max</item>
+
+    </string-array>
+
+
+
+
+</resources>
