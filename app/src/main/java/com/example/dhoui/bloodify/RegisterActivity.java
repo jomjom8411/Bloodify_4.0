@@ -46,7 +46,7 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText age;
     private EditText datedonation;
     private EditText password;
-    private static String URL_REGIST = "http://192.168.1.5/register.php";
+    private static String URL_REGIST = "http://192.168.1.2/Blood/Register.php";
     private DatePickerDialog.OnDateSetListener mDateListener;
 
     @Override

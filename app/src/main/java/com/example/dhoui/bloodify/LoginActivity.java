@@ -33,12 +33,18 @@ public class LoginActivity extends AppCompatActivity {
     private EditText email_text,password_text;
     private Button Signin_button,register_button;
     private ProgressBar progress;
-    private static String URL_REGIST = "http://192.168.1.5/Login.php";
-
+    private static String URL_REGIST = "http://192.168.1.2/blood/Login.php";
+    SessionManager sessionManager;
+    String getId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        sessionManager = new SessionManager(this);
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
 
          email_text = findViewById(R.id.email_text);
        password_text =  findViewById(R.id.password_text);
@@ -60,8 +66,6 @@ public class LoginActivity extends AppCompatActivity {
                  String email = email_text.getText().toString().trim();
                  String password = password_text.getText().toString().trim();
 
-                Intent registerIntent = new Intent(LoginActivity.this, HomeActivity.class);
-                LoginActivity.this.startActivity(registerIntent);
 
                 if(!email.isEmpty() || !password.isEmpty()) {
                     Login(email,password);
@@ -98,6 +102,13 @@ public class LoginActivity extends AppCompatActivity {
                             JSONObject object = jsonArray.getJSONObject(i);
                             String nom = object.getString("nom").trim();
                             String email = object.getString("Email").trim();
+                            String id = object.getString("id").trim();
+
+                            sessionManager.createSession(nom, email, id);
+
+
+                            Intent registerIntent = new Intent(LoginActivity.this, HomeActivity.class);
+                            LoginActivity.this.startActivity(registerIntent);
                             Toast.makeText(LoginActivity.this, "Login success. !"+nom+"mail"+email, Toast.LENGTH_LONG).show();
 
 
