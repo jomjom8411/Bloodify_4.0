@@ -73,10 +73,41 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.Spinner;
+import android.widget.Toast;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Calendar;
 public class HomeActivity extends AppCompatActivity {
 
-    String urladdress="http://192.168.1.2/displayposts.php";
-    String urladdress2="http://192.168.1.2/displayprofilebyid.php";
+    String urladdress="http://192.168.1.3/displayposts.php";
+    String urladdress2="http://192.168.1.3/displayprofilebyid.php";
     String[] name;
     String[] salut;
     String[] email;
@@ -87,13 +118,14 @@ public class HomeActivity extends AppCompatActivity {
     String result=null;
     String result2=null;
     String[] test,test2,test3;
-
+    String getId;
+    SessionManager sessionManager;
     private Spinner region ;
    private Spinner grpsanguin ;
     private Spinner slots ;
 
 
-    ListViewAdapter adapter;
+
     String[] title;
     String[] description;
     int[] icon;
@@ -117,7 +149,11 @@ public class HomeActivity extends AppCompatActivity {
         ArrayAdapter<CharSequence> adapter3 = ArrayAdapter.createFromResource(this, R.array.grpsanguin1,
                 android.R.layout.simple_spinner_item);
         adapter3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        sessionManager = new SessionManager(this);
+        sessionManager.checkLogin();
 
+        HashMap<String, String> user = sessionManager.getUserDetail();
+        getId = user.get(sessionManager.ID);
 
         listView=(ListView)findViewById(R.id.lview);
 
@@ -154,11 +190,37 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                //post();
+                post();
                 Intent registerIntent = new Intent(HomeActivity.this, HomeActivity.class);
                 HomeActivity.this.startActivity(registerIntent);
             }
         });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -396,7 +458,7 @@ public class HomeActivity extends AppCompatActivity {
                         {
 
                             name[i]=jo2.getString("nom")+" " +jo2.getString("prenom") ;;
-                            imagepath[i]=jo.getString("image");
+                            imagepath[i]=jo2.getString("photo");
 
                         }
 
@@ -433,6 +495,8 @@ public class HomeActivity extends AppCompatActivity {
 
 
 
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
@@ -448,17 +512,19 @@ public class HomeActivity extends AppCompatActivity {
 
             public boolean onQueryTextChange(String s) {
                 if (TextUtils.isEmpty(s)){
-                    adapter.filter("");
+                   
                     listView.clearTextFilter();
                 }
                 else {
-                    adapter.filter(s);
+
                 }
                 return true;
             }
         });
         return true;
     }
+
+
 
 
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -470,6 +536,93 @@ public class HomeActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+
+
+
+
+
+
+
+
+
+
+
+    private void post() {
+
+
+
+
+        final String region = this.region.getSelectedItem().toString().trim();
+        final String grpsanguin =this.grpsanguin.getSelectedItem().toString().trim();
+        final String slots =this.slots.getSelectedItem().toString().trim();
+
+
+        StringRequest StringRequest = new StringRequest(Request.Method.POST, URL_POST, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    String success = jsonObject.getString("success");
+
+                    if(success.equals("1")) {
+                        Toast.makeText(HomeActivity.this, "Compte crée !", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Toast.makeText(HomeActivity.this, "Erreur !"+ e.toString(), Toast.LENGTH_SHORT).show();
+
+                }
+
+
+            }
+        },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(HomeActivity.this, "Erreur !"+ error.toString(), Toast.LENGTH_SHORT).show();
+
+                    }
+                })
+        {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+
+                params.put("id_user",getId);
+                params.put("region",region);
+                params.put("grpsanguin",grpsanguin);
+                params.put("slots",slots);
+
+                return params;
+
+
+            }
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(StringRequest);
+
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

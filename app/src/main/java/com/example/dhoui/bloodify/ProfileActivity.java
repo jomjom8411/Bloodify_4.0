@@ -58,15 +58,14 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ProfileActivity extends AppCompatActivity {
 
     private static final String TAG = "ProfileActivity";
-    private static String URL_READ = "http://192.168.1.2/Blood/read_detail.php";
-    private static String URL_EDIT = "http://192.168.1.2/Blood/editprofile.php";
-    private static String URL_UPLOAD = "http://192.168.1.2/Blood/upload.php";
+    private static String URL_READ = "http://192.168.1.3/Blood/read_detail.php";
+    private static String URL_EDIT = "http://192.168.1.3/Blood/editprofile.php";
+    private static String URL_UPLOAD = "http://192.168.1.3/Blood/upload.php";
     private TextView name, email;
     SessionManager sessionManager;
     String getId;
-     private Button logout;
-    private Button btn_photo_upload;
-     private  TextView id;
+    private Button logout,btn_photo_upload;
+    private  TextView id;
     private Menu action;
     private Bitmap bitmap;
     CircleImageView profile_image;
@@ -82,9 +81,8 @@ public class ProfileActivity extends AppCompatActivity {
         btn_photo_upload = findViewById(R.id.btn_photo);
         profile_image = findViewById(R.id.profile_image);
 
-
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavView_Bar);
-     //   BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
+        //   BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
         Menu menu = bottomNavigationView.getMenu();
         MenuItem menuItem = menu.getItem(4);
         menuItem.setChecked(true);
@@ -97,11 +95,17 @@ public class ProfileActivity extends AppCompatActivity {
         id.setText(getId);
         logout= findViewById(R.id.btnlogout);
         logout.setOnClickListener(new View.OnClickListener() {
-                                          @Override
-                                          public void onClick(View v) {
-                                              sessionManager.logout();
-                                          }
-                                      });
+            @Override
+            public void onClick(View v) {
+                sessionManager.logout();
+            }
+        });
+        btn_photo_upload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                chooseFile();
+            }
+        });
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -135,115 +139,10 @@ public class ProfileActivity extends AppCompatActivity {
                 return false;
             }
         });
-
-
-
-        btn_photo_upload.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                chooseFile();
-            }
-        });
-
-
-
     }
 
 
 
-
-
-    private void chooseFile(){
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"), 1);
-    }
-
-
-
-
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1 && resultCode == RESULT_OK && data != null && data.getData() != null) {
-            Uri filePath = data.getData();
-            try {
-
-                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
-                profile_image.setImageBitmap(bitmap);
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            UploadPicture(getId, getStringImage(bitmap));
-
-        }
-    }
-
-    private void UploadPicture(final String id, final String photo) {
-
-        final ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Uploading...");
-        progressDialog.show();
-
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_UPLOAD,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        progressDialog.dismiss();
-                        Log.i(TAG, response.toString());
-                        try {
-                            JSONObject jsonObject = new JSONObject(response);
-                            String success = jsonObject.getString("success");
-
-                            if (success.equals("1")){
-                                Toast.makeText(ProfileActivity.this, "Success!", Toast.LENGTH_SHORT).show();
-                            }
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            progressDialog.dismiss();
-                            Toast.makeText(ProfileActivity.this, "Try Again!"+e.toString(), Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        progressDialog.dismiss();
-                        Toast.makeText(ProfileActivity.this, "Try Again!" + error.toString(), Toast.LENGTH_SHORT).show();
-                    }
-                })
-        {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put("id", id);
-                params.put("photo", photo);
-
-                return params;
-            }
-        };
-
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(stringRequest);
-
-
-    }
-
-    public String getStringImage(Bitmap bitmap){
-
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
-
-        byte[] imageByteArray = byteArrayOutputStream.toByteArray();
-        String encodedImage = Base64.encodeToString(imageByteArray, Base64.DEFAULT);
-
-        return encodedImage;
-    }
 
 
 
@@ -269,6 +168,10 @@ public class ProfileActivity extends AppCompatActivity {
 
                         try {
                             JSONObject jsonObject = new JSONObject(response);
+
+
+
+
                             String success = jsonObject.getString("success");
                             JSONArray jsonArray = jsonObject.getJSONArray("read");
 
@@ -308,6 +211,15 @@ public class ProfileActivity extends AppCompatActivity {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String > params = new HashMap<>();
                 params.put("id", getId);
+                params.put("nom", getId);
+                params.put("prenom", getId);
+                params.put("Email", getId);
+                params.put("tel", getId);
+                params.put("region", getId);
+                params.put("grpsanguin", getId);
+                params.put("age", getId);
+                params.put("datedonation", getId);
+                params.put("password", getId);
                 return params;
             }
         };
@@ -395,6 +307,8 @@ public class ProfileActivity extends AppCompatActivity {
                         progressDialog.dismiss();
 
                         try {
+
+                            System.out.println(response);
                             JSONObject jsonObject = new JSONObject(response);
                             String success = jsonObject.getString("success");
 
@@ -420,7 +334,21 @@ public class ProfileActivity extends AppCompatActivity {
                     }
                 })
         {
-
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("nom", name);
+                params.put("prenom", getId);
+                params.put("Email", email);
+                params.put("tel", getId);
+                params.put("region", getId);
+                params.put("grpsanguin", getId);
+                params.put("age", getId);
+                params.put("datedonation", getId);
+                params.put("password", getId);
+                params.put("Id", id);
+                return params;
+            }
         };
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
@@ -430,6 +358,95 @@ public class ProfileActivity extends AppCompatActivity {
 
 
 
+    private void chooseFile(){
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), 1);
+    }
+
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1 && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            Uri filePath = data.getData();
+            try {
+
+                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
+                profile_image.setImageBitmap(bitmap);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            UploadPicture(getId, getStringImage(bitmap));
+
+        }
+    }
+
+    private void UploadPicture(final String id, final String photo) {
+
+        final ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Uploading...");
+        progressDialog.show();
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_UPLOAD,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        progressDialog.dismiss();
+
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            String success = jsonObject.getString("success");
+
+                            if (success.equals("1")){
+                                Toast.makeText(ProfileActivity.this, "Success!", Toast.LENGTH_SHORT).show();
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            progressDialog.dismiss();
+                            Toast.makeText(ProfileActivity.this, "Try Again!"+e.toString(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        progressDialog.dismiss();
+                        Toast.makeText(ProfileActivity.this, "Try Again!" + error.toString(), Toast.LENGTH_SHORT).show();
+                    }
+                })
+        {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("Id", id);
+                params.put("photo", photo);
+
+                return params;
+            }
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
+
+
+    }
+
+    public String getStringImage(Bitmap bitmap){
+
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+
+        byte[] imageByteArray = byteArrayOutputStream.toByteArray();
+        String encodedImage = Base64.encodeToString(imageByteArray, Base64.DEFAULT);
+
+        return encodedImage;
+    }
 
 
 }

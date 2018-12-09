@@ -33,7 +33,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText email_text,password_text;
     private Button Signin_button,register_button;
     private ProgressBar progress;
-    private static String URL_REGIST = "http://192.168.1.2/blood/Login.php";
+    private static String URL_REGIST = "http://192.168.1.3/blood/Login.php";
     SessionManager sessionManager;
     String getId;
     @Override
