@@ -57,6 +57,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ProfileActivity extends AppCompatActivity {
 
+    private SharedPreference prefconf ;
+
     private static final String TAG = "ProfileActivity";
     private static String URL_READ = "http://192.168.1.3/Blood/read_detail.php";
     private static String URL_EDIT = "http://192.168.1.3/Blood/editprofile.php";
@@ -74,7 +76,7 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-
+        prefconf = new SharedPreference(getApplicationContext());
         name = findViewById(R.id.name);
         email = findViewById(R.id.email);
         TextView id = (TextView) findViewById(R.id.id);
@@ -98,6 +100,7 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 sessionManager.logout();
+                prefconf.writeLoginStatus(false);
             }
         });
         btn_photo_upload.setOnClickListener(new View.OnClickListener() {
@@ -183,7 +186,7 @@ public class ProfileActivity extends AppCompatActivity {
 
                                     String strName = object.getString("name").trim();
                                     String strEmail = object.getString("email").trim();
-                                    String strphoto = object.getString("photo").trim();
+
                                     name.setText(strName);
                                     email.setText(strEmail);
 

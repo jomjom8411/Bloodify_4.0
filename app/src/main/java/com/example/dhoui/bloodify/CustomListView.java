@@ -169,7 +169,13 @@ import android.widget.AdapterView;
         private ImageView mHeartRed;
         private ImageView mHeartWhite;
     String getId;
+    String pos;
     SessionManager sessionManager;
+    BufferedInputStream is;
+    String line = null;
+    String result = null;
+    String[] testpost;
+    String ok ;
 
         private GestureDetector mGestureDetector;
         private Heart mHeart;
@@ -227,8 +233,9 @@ import android.widget.AdapterView;
             viewHolder.donate.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                       donate();
-                    Toast.makeText(getContext(), "Button was clicked for list item " , Toast.LENGTH_SHORT).show();                    System.out.println(Arrays.toString(email));
+                       donate(position);
+
+                    Toast.makeText(getContext(), "u have donated" , Toast.LENGTH_SHORT).show();                    System.out.println(Arrays.toString(email));
                 }
             })
             ;
@@ -297,7 +304,69 @@ import android.widget.AdapterView;
 
 
 
-    private void donate() {
+    private void donate( final int position) {
+
+
+
+
+        try {
+
+            URL url = new URL(urladdress);
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            con.setRequestMethod("GET");
+            is = new BufferedInputStream(con.getInputStream());
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        //content
+        try {
+            BufferedReader br = new BufferedReader(new InputStreamReader(is));
+            StringBuilder sb = new StringBuilder();
+            while ((line = br.readLine()) != null) {
+                sb.append(line + "\n");
+            }
+            is.close();
+            result = sb.toString();
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+
+        }
+
+
+
+
+        try {
+            JSONArray ja2 = new JSONArray(result);
+
+            JSONObject jo2 = null;
+            testpost = new String[ja2.length()];
+
+
+            testpost[position] = jo2.getString("id_post");
+
+
+
+        } catch (Exception ex) {
+
+            ex.printStackTrace();
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -363,6 +432,7 @@ import android.widget.AdapterView;
         requestQueue.add(StringRequest);
 
 
+
     }
 
 
@@ -371,8 +441,6 @@ import android.widget.AdapterView;
 
 
 
-
-    
 
 
 

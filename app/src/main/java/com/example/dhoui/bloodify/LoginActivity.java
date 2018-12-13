@@ -29,6 +29,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
+
+
+    private SharedPreference prefconf ;
     private static final String TAG = "LoginActivity";
     private EditText email_text,password_text;
     private Button Signin_button,register_button;
@@ -44,6 +47,10 @@ public class LoginActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        prefconf = new SharedPreference(getApplicationContext());
+
+
+
 
 
          email_text = findViewById(R.id.email_text);
@@ -51,6 +58,14 @@ public class LoginActivity extends AppCompatActivity {
         Signin_button =  findViewById(R.id.Signin_button);
          register_button =  findViewById(R.id.register_button);
          progress = findViewById(R.id.progress);
+
+
+        if(prefconf.readLoginStatus()){
+
+            Intent intent = new Intent(LoginActivity.this ,HomeActivity.class);
+            startActivity(intent);
+            finish();
+        }
 
         register_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,6 +124,7 @@ public class LoginActivity extends AppCompatActivity {
 
                             Intent registerIntent = new Intent(LoginActivity.this, HomeActivity.class);
                             LoginActivity.this.startActivity(registerIntent);
+                            prefconf.writeLoginStatus(true);
                             Toast.makeText(LoginActivity.this, "Login success. !"+nom+"mail"+email, Toast.LENGTH_LONG).show();
 
 

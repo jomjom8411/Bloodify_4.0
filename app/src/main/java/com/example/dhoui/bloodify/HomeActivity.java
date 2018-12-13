@@ -141,6 +141,9 @@ import android.widget.AdapterView;
 
 public class HomeActivity extends AppCompatActivity {
 
+
+
+    private  SharedPreference prefconf ;
     String urladdress = "http://192.168.1.3/displayposts.php";
     String urladdress2 = "http://192.168.1.3/displayprofilebyid.php";
     String[] name;
@@ -191,7 +194,7 @@ public class HomeActivity extends AppCompatActivity {
 
 
         setContentView(R.layout.activity_home);
-
+        prefconf = new SharedPreference(getApplicationContext());
 
 
         grpsanguin = findViewById(R.id.grpsanguin_Text);
@@ -364,12 +367,80 @@ public class HomeActivity extends AppCompatActivity {
         });
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)   {
+        getMenuInflater().inflate(R.menu.menu, menu);
+
+        MenuItem myActionMenuItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) myActionMenuItem.getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+
+
+            public boolean onQueryTextChange(String s) {
+                if (TextUtils.isEmpty(s)) {
+                   // customListView.filter("");
+                    listView.clearTextFilter();
+                } else {
+                  //  customListView.filter(s);
+                }
+                return true;
+            }
+        });
+        return true;
+    }
+
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.action_settings) {
+            //do your functionality here
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
+
+
+
 
 
     private void collectData() {
 //Connection
-        try {
+            try {
 
             URL url = new URL(urladdress);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -503,42 +574,9 @@ public class HomeActivity extends AppCompatActivity {
 
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu, menu);
-
-        MenuItem myActionMenuItem = menu.findItem(R.id.action_search);
-        SearchView searchView = (SearchView) myActionMenuItem.getActionView();
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-
-            public boolean onQueryTextSubmit(String s) {
-                return false;
-            }
 
 
-            public boolean onQueryTextChange(String s) {
-                if (TextUtils.isEmpty(s)) {
 
-                    listView.clearTextFilter();
-                } else {
-
-                }
-                return true;
-            }
-        });
-        return true;
-    }
-
-
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.action_settings) {
-            //do your functionality here
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
 
     private void post() {
