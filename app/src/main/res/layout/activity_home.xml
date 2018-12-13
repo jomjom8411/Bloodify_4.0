@@ -12,8 +12,17 @@
         android:layout_above="@+id/bottomBar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        >
+              >
 
+
+
+
+
+     <include
+         layout="@layout/layout"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -25,6 +34,8 @@
 
 
     </RelativeLayout>
+
+
 
 
     <RelativeLayout
@@ -111,6 +122,11 @@
             tools:layout_editor_absoluteY="15dp" />
 
 
+
+
+
+
+
     </RelativeLayout>
 
 
@@ -126,6 +142,7 @@
         android:layout_marginBottom="49dp">
 
     </ListView>
+
 
 
 

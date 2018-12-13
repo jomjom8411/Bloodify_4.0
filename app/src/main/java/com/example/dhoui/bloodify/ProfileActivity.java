@@ -183,9 +183,10 @@ public class ProfileActivity extends AppCompatActivity {
 
                                     String strName = object.getString("name").trim();
                                     String strEmail = object.getString("email").trim();
-
+                                    String strphoto = object.getString("photo").trim();
                                     name.setText(strName);
                                     email.setText(strEmail);
+
 
                                 }
 
