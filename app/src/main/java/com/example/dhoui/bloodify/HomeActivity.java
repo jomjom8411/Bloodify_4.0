@@ -144,8 +144,8 @@ public class HomeActivity extends AppCompatActivity {
 
 
     private  SharedPreference prefconf ;
-    String urladdress = "http://192.168.1.3/displayposts.php";
-    String urladdress2 = "http://192.168.1.3/displayprofilebyid.php";
+    String urladdress = "http://192.168.1.6/Blood/displayposts.php";
+    String urladdress2 = "http://192.168.1.6/Blood/displayprofilebyid.php";
     String[] name;
     String[] salut;
     String[] email;
@@ -164,7 +164,7 @@ public class HomeActivity extends AppCompatActivity {
     private ImageView mHeartRed;
     private ImageView  mHeartWhite;
     private Activity context;
-    private static String URL_DONATE = "http://192.168.1.3/blood/donate2.php";
+    private static String URL_DONATE = "http://192.168.1.6/blood/donate2.php";
     private GestureDetector mGestureDetector;
     private Heart mHeart;
 
@@ -176,7 +176,7 @@ public class HomeActivity extends AppCompatActivity {
     ArrayList<Model> arrayList = new ArrayList<Model>();
     private Button pub;
     private Button donate;
-    private static String URL_POST = "http://192.168.1.3/blood/addpost.php";
+    private static String URL_POST = "http://192.168.1.6/blood/addpost.php";
     private static final String TAG = "HomeActivity ";
 
     @Override
@@ -395,7 +395,7 @@ public class HomeActivity extends AppCompatActivity {
 
 
 
-    @Override
+   /* @Override
     public boolean onCreateOptionsMenu(Menu menu)   {
         getMenuInflater().inflate(R.menu.menu, menu);
 
@@ -411,7 +411,7 @@ public class HomeActivity extends AppCompatActivity {
             public boolean onQueryTextChange(String s) {
                 if (TextUtils.isEmpty(s)) {
                    // customListView.filter("");
-                    listView.clearTextFilter();
+                    //listView.clearTextFilter();
                 } else {
                   //  customListView.filter(s);
                 }
@@ -430,7 +430,7 @@ public class HomeActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
+    }   */
 
 
 
@@ -517,8 +517,9 @@ public class HomeActivity extends AppCompatActivity {
                     JSONArray ja2 = new JSONArray(result2);
 
                     JSONObject jo2 = null;
+
                     test2 = new String[ja2.length()];
-                    test3 = new String[ja2.length()];
+
 
                     for (int j = 0; j <= ja2.length(); j++) {
                         jo2 = ja2.getJSONObject(j);
@@ -530,8 +531,9 @@ public class HomeActivity extends AppCompatActivity {
 
                             name[i] = jo2.getString("nom") + " " + jo2.getString("prenom");
 
-                            imagepath[i] = jo2.getString("photo");
 
+                            imagepath[i] = jo2.getString("photo");
+                            email[i] = "je cherche " + jo.getString("slots") + " poches de " + jo.getString("grpsanguin") + " à " + jo.getString("region");
 
                         }
 
@@ -543,7 +545,6 @@ public class HomeActivity extends AppCompatActivity {
                 }
 
 
-                email[i] = "je cherche " + jo.getString("slots") + " poches de " + jo.getString("grpsanguin") + " à " + jo.getString("region");
 
 
 

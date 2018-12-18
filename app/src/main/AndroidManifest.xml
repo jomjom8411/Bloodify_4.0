@@ -24,7 +24,9 @@
         <activity android:name=".MessageActivity" />
         <activity android:name=".TipActivity" />
         <activity android:name=".HospitalActivity" />
-        <activity android:name=".ProfileActivity"></activity>
+        <activity android:name=".ProfileActivity" />
+        <activity android:name=".Historique_activity" />
+        <activity android:name=".HistoriqueConfirme"></activity>
     </application>
 
 </manifest>

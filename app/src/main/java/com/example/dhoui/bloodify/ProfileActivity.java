@@ -1,5 +1,6 @@
 package com.example.dhoui.bloodify;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -60,13 +61,13 @@ public class ProfileActivity extends AppCompatActivity {
     private SharedPreference prefconf ;
 
     private static final String TAG = "ProfileActivity";
-    private static String URL_READ = "http://192.168.1.3/Blood/read_detail.php";
-    private static String URL_EDIT = "http://192.168.1.3/Blood/editprofile.php";
-    private static String URL_UPLOAD = "http://192.168.1.3/Blood/upload.php";
+    private static String URL_READ = "http://192.168.1.6/Blood/read_detail.php";
+    private static String URL_EDIT = "http://192.168.1.6/Blood/editprofile.php";
+    private static String URL_UPLOAD = "http://192.168.1.6/Blood/upload.php";
     private TextView name, email;
     SessionManager sessionManager;
     String getId;
-    private Button logout,btn_photo_upload;
+    private Button logout,btn_photo_upload,historique;
     private  TextView id;
     private Menu action;
     private Bitmap bitmap;
@@ -82,7 +83,7 @@ public class ProfileActivity extends AppCompatActivity {
         TextView id = (TextView) findViewById(R.id.id);
         btn_photo_upload = findViewById(R.id.btn_photo);
         profile_image = findViewById(R.id.profile_image);
-
+        historique = findViewById(R.id.activity);
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavView_Bar);
         //   BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
         Menu menu = bottomNavigationView.getMenu();
@@ -103,6 +104,34 @@ public class ProfileActivity extends AppCompatActivity {
                 prefconf.writeLoginStatus(false);
             }
         });
+
+
+
+
+
+        historique.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                customDialog("Historique de vos Activités "," Visiter vos activités", "cancelMethod1","okMethod1");
+            }
+        });
+
+
+
+
+
+
+
+
+       /* historique.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ProfileActivity.this ,Historique_activity.class);
+                startActivity(intent);
+            }
+        });   */
+
+
         btn_photo_upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -451,6 +480,88 @@ public class ProfileActivity extends AppCompatActivity {
 
         return encodedImage;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public void customDialog(String title, String message, final String cancelMethod, final String okMethod){
+        final android.support.v7.app.AlertDialog.Builder builderSingle = new android.support.v7.app.AlertDialog.Builder(this);
+        builderSingle.setIcon(R.mipmap.ic_launcher);
+        builderSingle.setTitle(title);
+        builderSingle.setMessage(message);
+
+        builderSingle.setNegativeButton(
+                "confirmées",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Log.d(TAG, "onClick: Cancel Called.");
+                        if(cancelMethod.equals("cancelMethod1")){
+                            cancelMethod1();
+                        }
+
+
+                    }
+                });
+
+        builderSingle.setPositiveButton(
+                "non confirmées",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Log.d(TAG, "onClick: OK Called.");
+                        if(okMethod.equals("okMethod1")){
+                            okMethod1();
+                        }
+
+                    }
+                });
+
+
+        builderSingle.show();
+    }
+
+
+
+    private void okMethod1(){
+
+        Intent intent = new Intent(ProfileActivity.this ,Historique_activity.class);
+        startActivity(intent);
+
+
+        Log.d(TAG, "okMethod1: Called.");
+        toastMessage("Les demandes non Confirmées :(.");
+    }
+
+
+
+    private void cancelMethod1(){
+
+        Intent intent = new Intent(ProfileActivity.this ,HistoriqueConfirme.class);
+        startActivity(intent);
+
+        Log.d(TAG, "cancelMethod1: Called.");
+        toastMessage("Les demandes Confirmées :D .");
+    }
+
+
+    public void toastMessage(String message){
+        Toast.makeText(this,message,Toast.LENGTH_SHORT).show();
+    }
+
+
+
+
 
 
 }

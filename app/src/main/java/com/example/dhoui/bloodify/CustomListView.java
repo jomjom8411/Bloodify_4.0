@@ -179,9 +179,9 @@ import android.widget.AdapterView;
 
         private GestureDetector mGestureDetector;
         private Heart mHeart;
-        private Button donate;
-        private static String URL_DONATE = "http://192.168.1.3/blood/donate2.php";
-        String urladdress = "http://192.168.1.3/displayposts.php";
+
+        private static String URL_DONATE = "http://192.168.1.6/blood/donate2.php";
+    String urladdress = "http://192.168.1.6/blood/displayposts.php";
 
         public CustomListView(Activity context, final String[] profilename, String[] email, String[] imagepath) {
             super(context, R.layout.layout, profilename);
@@ -230,12 +230,14 @@ import android.widget.AdapterView;
 
 
             new GetImageFromURL(viewHolder.ivw).execute(imagepath[position]);
+            final ViewHolder finalViewHolder = viewHolder;
             viewHolder.donate.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                        donate(position);
+                finalViewHolder.donate.setEnabled(false);
+                    Toast.makeText(getContext(), "u have donated" +testpost, Toast.LENGTH_SHORT).show();
 
-                    Toast.makeText(getContext(), "u have donated" , Toast.LENGTH_SHORT).show();                    System.out.println(Arrays.toString(email));
                 }
             })
             ;
@@ -309,7 +311,7 @@ import android.widget.AdapterView;
 
 
 
-        try {
+            try {
 
             URL url = new URL(urladdress);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -333,40 +335,6 @@ import android.widget.AdapterView;
             ex.printStackTrace();
 
         }
-
-
-
-
-        try {
-            JSONArray ja2 = new JSONArray(result);
-
-            JSONObject jo2 = null;
-            testpost = new String[ja2.length()];
-
-
-            testpost[position] = jo2.getString("id_post");
-
-
-
-        } catch (Exception ex) {
-
-            ex.printStackTrace();
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -399,27 +367,31 @@ import android.widget.AdapterView;
                 }) {
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            @Override
+        @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
 
-                params.put("id_user", getId);
-                params.put("id_post", getId);
 
+
+
+
+                try {
+                    JSONArray ja2 = new JSONArray(result);
+
+                    JSONObject jo2 = null;
+                    testpost = new String[ja2.length()];
+
+                    jo2 = ja2.getJSONObject(position);
+                    String e = jo2.getString("Id");
+
+                    System.out.println("saslut jomjojjmmmmmmm"+e);
+
+                    params.put("id_user", getId);
+                    params.put("id_post", e);
+                } catch (Exception ex) {
+
+                    ex.printStackTrace();
+                }
 
 
                 return params;
