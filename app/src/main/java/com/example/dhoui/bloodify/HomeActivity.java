@@ -148,10 +148,10 @@ public class HomeActivity extends AppCompatActivity {
     String urladdress2 = "http://192.168.1.6/Blood/displayprofilebyid.php";
     String[] name;
     String[] salut;
-    String[] email;
+    String[] email,number;
     String[] imagepath;
     ListView listView;
-    BufferedInputStream is;
+    BufferedInputStream is,is2;
     String line = null;
     String result = null;
     String result2 = null;
@@ -222,7 +222,7 @@ public class HomeActivity extends AppCompatActivity {
 
         StrictMode.setThreadPolicy((new StrictMode.ThreadPolicy.Builder().permitNetwork().build()));
         collectData();
-        CustomListView customListView = new CustomListView(this, name, email, imagepath);
+        CustomListView customListView = new CustomListView(this, name, email, imagepath, number);
         listView.setAdapter(customListView);
 
 
@@ -474,20 +474,20 @@ public class HomeActivity extends AppCompatActivity {
             URL url2 = new URL(urladdress2);
             HttpURLConnection con = (HttpURLConnection) url2.openConnection();
             con.setRequestMethod("GET");
-            is = new BufferedInputStream(con.getInputStream());
+            is2 = new BufferedInputStream(con.getInputStream());
 
         } catch (Exception ex) {
             ex.printStackTrace();
         }
         //content
         try {
-            BufferedReader br = new BufferedReader(new InputStreamReader(is));
-            StringBuilder sb = new StringBuilder();
-            while ((line = br.readLine()) != null) {
-                sb.append(line + "\n");
+            BufferedReader br2 = new BufferedReader(new InputStreamReader(is2));
+            StringBuilder sb2 = new StringBuilder();
+            while ((line = br2.readLine()) != null) {
+                sb2.append(line + "\n");
             }
-            is.close();
-            result2 = sb.toString();
+            is2.close();
+            result2 = sb2.toString();
 
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -502,6 +502,7 @@ public class HomeActivity extends AppCompatActivity {
             JSONObject jo = null;
             name = new String[ja.length()];
             email = new String[ja.length()];
+            number = new String[ja.length()];
             test = new String[ja.length()];
             imagepath = new String[ja.length()];
 
@@ -533,7 +534,10 @@ public class HomeActivity extends AppCompatActivity {
 
 
                             imagepath[i] = jo2.getString("photo");
-                            email[i] = "je cherche " + jo.getString("slots") + " poches de " + jo.getString("grpsanguin") + " à " + jo.getString("region");
+                            email[i] = "je cherche  " + jo.getString("slots") + "  poches de  " + jo.getString("grpsanguin") + " à " + jo.getString("region");
+                            number[i]=jo.getString("donors_number");
+
+                            ;
 
                         }
 

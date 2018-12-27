@@ -163,6 +163,7 @@ import android.widget.AdapterView;
 
         private String[] profilename;
         private String[] email;
+    private String[] number;
         private String[] imagepath;
         private Activity context;
         Bitmap bitmap;
@@ -183,11 +184,12 @@ import android.widget.AdapterView;
         private static String URL_DONATE = "http://192.168.1.6/blood/donate2.php";
     String urladdress = "http://192.168.1.6/blood/displayposts.php";
 
-        public CustomListView(Activity context, final String[] profilename, String[] email, String[] imagepath) {
+        public CustomListView(Activity context, final String[] profilename, String[] email, String[] imagepath, String[] number ) {
             super(context, R.layout.layout, profilename);
             this.context = context;
             this.profilename = profilename;
             this.email = email;
+            this.number = number;
             this.imagepath = imagepath;
 
 
@@ -227,6 +229,7 @@ import android.widget.AdapterView;
 
             viewHolder.tvw1.setText(profilename[position]);
             viewHolder.tvw2.setText(email[position]);
+            viewHolder.tvw3.setText(number[position]);
 
 
             new GetImageFromURL(viewHolder.ivw).execute(imagepath[position]);
@@ -250,16 +253,18 @@ import android.widget.AdapterView;
 
             TextView tvw1;
             TextView tvw2;
+            TextView tvw3;
             ImageView ivw;
-            ImageView mHeartRed;
-            ImageView mHeartWhite;
+            ImageView ivw2;
             Button donate;
 
 
             ViewHolder(View v) {
                 tvw1 = (TextView) v.findViewById(R.id.tvprofilename);
                 tvw2 = (TextView) v.findViewById(R.id.tvemail);
+                tvw3 = (TextView) v.findViewById(R.id.number);
                 ivw = (ImageView) v.findViewById(R.id.imageView);
+                ivw2 = (ImageView) v.findViewById(R.id.imageView3);
                 donate =v.findViewById(R.id.donate);
 
 

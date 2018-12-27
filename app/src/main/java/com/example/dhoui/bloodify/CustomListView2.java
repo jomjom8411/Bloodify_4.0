@@ -180,13 +180,17 @@ public class CustomListView2 extends ArrayAdapter<String>{
     private String[] profilename;
     private String[] email;
     private String[] imagepath;
-    BufferedInputStream is;
+    BufferedInputStream is,is2;
     String line = null;
     String result = null;
+    String result2 = null;
     private Activity context;
     Bitmap bitmap;
-    private static String URL_CONFIRM = "http://192.168.1.6/blood/confirmdonate.php";
+    private static String URL_CONFIRM = "http://192.168.1.6/blood/confirmdonate.php?Id=";
+    private static String URL_ADD_Donor = "http://192.168.1.6/blood/add_donor.php?Id=";
     String urladdress="http://192.168.1.6/blood/posts_that_a_user_wants_to_donate_on_but_not_confirmed.php?id_user=";
+    String urladdress2="http://192.168.1.6/blood/getapostbyitsId.php?Id=";
+
     String getId;
     SessionManager sessionManager;
 
@@ -362,76 +366,326 @@ public class CustomListView2 extends ArrayAdapter<String>{
 
 
 
-        StringRequest StringRequest = new StringRequest(Request.Method.POST, URL_CONFIRM, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                try {
-                    JSONObject jsonObject = new JSONObject(response);
-                    String success = jsonObject.getString("success");
-
-                    if (success.equals("1")) {
-                        Toast.makeText(getContext(), "donation confirmée!", Toast.LENGTH_SHORT).show();
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    Toast.makeText(getContext(), "Erreur !" + e.toString(), Toast.LENGTH_SHORT).show();
-
-                }
 
 
-            }
-        },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getContext(), "Erreur !" + error.toString(), Toast.LENGTH_SHORT).show();
+        try {
+            JSONArray ja2 = new JSONArray(result);
 
-                    }
-                }) {
+            JSONObject jo2 = null;
+            //     testpost = new String[ja2.length()];
+            for(int i=0;i<=ja2.length();i++) {
+
+                jo2 = ja2.getJSONObject(position);
+                String e = jo2.getString("id_post");
+                String p = jo2.getString("Id");
+                System.out.println("saslut jomjojjmmmmmmm" + position);
 
 
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
+
 
 
 
 
 
                 try {
-                    JSONArray ja2 = new JSONArray(result);
 
-                    JSONObject jo2 = null;
-                    //     testpost = new String[ja2.length()];
-                    for(int i=0;i<=ja2.length();i++) {
+                    URL url2 = new URL(urladdress2+e);
+                    HttpURLConnection con = (HttpURLConnection) url2.openConnection();
+                    con.setRequestMethod("GET");
+                    is2 = new BufferedInputStream(con.getInputStream());
 
-                        jo2 = ja2.getJSONObject(position);
-                        String e = jo2.getString("id_post");
-
-                        System.out.println("saslut jomjojjmmmmmmm" + position);
-
-                        params.put("id_user", getId);
-                        params.put("id_post", e);
-                        params.put("etat", "1");
-                    }
                 } catch (Exception ex) {
-
                     ex.printStackTrace();
                 }
+                //content
+                try {
+                    BufferedReader br2 = new BufferedReader(new InputStreamReader(is2));
+                    StringBuilder sb2 = new StringBuilder();
+                    while ((line = br2.readLine()) != null) {
+                        sb2.append(line + "\n");
+                    }
+                    is2.close();
+                    result2 = sb2.toString();
+
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+
+                }
 
 
-                return params;
+
+
+
+
+
+
+
+
+
+                //add_+1donor
+
+
+
+                StringRequest StringRequest2 = new StringRequest(Request.Method.POST, URL_ADD_Donor+e, new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            String success = jsonObject.getString("success");
+
+                            if (success.equals("1")) {
+                                Toast.makeText(getContext(), "donators numbers!", Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(getContext(), "Erreur !" + e.toString(), Toast.LENGTH_SHORT).show();
+
+                        }
+
+
+                    }
+                },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                Toast.makeText(getContext(), "Erreur !" + error.toString(), Toast.LENGTH_SHORT).show();
+
+                            }
+                        }) {
+
+
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        Map<String, String> params = new HashMap<>();
+
+
+
+
+
+                        try {
+                            JSONArray ja3 = new JSONArray(result);
+
+                            JSONObject jo3 = null;
+
+                            for(int i=0;i<=ja3.length();i++) {
+
+                                jo3 = ja3.getJSONObject(position);
+
+                                String p = jo3.getString("id_post");
+
+
+
+
+
+                                try {
+                                    JSONArray ja33 = new JSONArray(result2);
+
+                                    JSONObject jo33 = null;
+
+
+
+                                    jo33 = ja33.getJSONObject(0);
+
+                                    String number_donors = jo33.getString("donors_number");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                System.out.println("donarts jomjojjmmmmmmm" + p);
+                                //  String c = jo3.getString("donors_number");
+                                String tester;
+                                params.put("Id", p);
+
+                                tester =  Integer.toString(  Integer.valueOf(number_donors)+1);
+                                params.put("donors_number",tester);
+
+
+
+                                } catch (Exception ex) {
+
+                                    ex.printStackTrace();
+                                }
+
+
+
+                            }
+                        } catch (Exception ex) {
+
+                            ex.printStackTrace();
+                        }
+
+
+
+
+
+
+                        return params;
+
+
+                    }
+                };
+
+                RequestQueue requestQueue2 = Volley.newRequestQueue(getContext());
+                requestQueue2.add(StringRequest2);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//adddonorrrr
+
+
+
+                StringRequest StringRequest = new StringRequest(Request.Method.POST, URL_CONFIRM+p, new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            String success = jsonObject.getString("success");
+
+                            if (success.equals("1")) {
+                                Toast.makeText(getContext(), "donation confirmée!", Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(getContext(), "Erreur !" + e.toString(), Toast.LENGTH_SHORT).show();
+
+                        }
+
+
+                    }
+                },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                Toast.makeText(getContext(), "Erreur !" + error.toString(), Toast.LENGTH_SHORT).show();
+
+                            }
+                        }) {
+
+
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        Map<String, String> params = new HashMap<>();
+
+
+
+
+
+                        try {
+                            JSONArray ja2 = new JSONArray(result);
+
+                            JSONObject jo2 = null;
+                            //     testpost = new String[ja2.length()];
+                            for(int i=0;i<=ja2.length();i++) {
+
+                                jo2 = ja2.getJSONObject(position);
+                                String e = jo2.getString("id_post");
+                                String p = jo2.getString("Id");
+                                System.out.println("saslut jomjojjmmmmmmm" + position);
+
+
+                                params.put("Id", p);
+                                params.put("id_user", getId);
+                                params.put("id_post", e);
+                                params.put("etat", "1");
+                            }
+                        } catch (Exception ex) {
+
+                            ex.printStackTrace();
+                        }
+
+
+                        return params;
+
+
+                    }
+                };
+
+                RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+                requestQueue.add(StringRequest);
+
+
+
+
 
 
             }
-        };
+} catch (Exception ex) {
 
-        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
-        requestQueue.add(StringRequest);
+        ex.printStackTrace();
+        }
 
 
 
-    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        }
+
+
 
 
 
