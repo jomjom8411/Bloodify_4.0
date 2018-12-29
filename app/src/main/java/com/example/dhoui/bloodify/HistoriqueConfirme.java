@@ -1,8 +1,13 @@
 package com.example.dhoui.bloodify;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ListView;
 
 import org.json.JSONArray;
@@ -48,6 +53,36 @@ public class HistoriqueConfirme extends AppCompatActivity {
         collectData();
         CustomListView3 customListView=new CustomListView3(this,name,email,imagepath);
         listView.setAdapter(customListView);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     }
 

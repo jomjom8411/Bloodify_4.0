@@ -20,8 +20,8 @@
 
             android:layout_alignEnd="@+id/imageView"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="102dp"
-            android:layout_marginEnd="-249dp"
+            android:layout_marginTop="132dp"
+            android:layout_marginEnd="-267dp"
             android:text="Confirmer" />
 
 

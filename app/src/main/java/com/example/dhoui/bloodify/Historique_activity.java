@@ -52,6 +52,10 @@ public class Historique_activity extends AppCompatActivity {
 
         StrictMode.setThreadPolicy((new StrictMode.ThreadPolicy.Builder().permitNetwork().build()));
         collectData();
+
+
+
+
         CustomListView2 customListView=new CustomListView2(this,name,email,imagepath);
         listView.setAdapter(customListView);
 

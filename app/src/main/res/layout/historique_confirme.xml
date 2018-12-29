@@ -8,15 +8,30 @@
 
 
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+
+        >
+
+        <ListView
+            android:id="@+id/lview"
+            android:layout_width="364dp"
+            android:layout_height="352dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="58dp"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="47dp" />
+    </RelativeLayout>
 
 
 
-    <ListView
-        android:id="@+id/lview"
-        android:layout_width="368dp"
-        android:layout_height="495dp"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="8dp" />
+
+
+
+
+
 
 
 

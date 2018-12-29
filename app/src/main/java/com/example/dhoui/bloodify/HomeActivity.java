@@ -125,6 +125,7 @@ import android.widget.TextView;
 
 import java.io.InputStream;
 import android.widget.AdapterView;
+import com.github.clans.fab.FloatingActionButton;
 
 
 
@@ -144,7 +145,7 @@ public class HomeActivity extends AppCompatActivity {
 
 
     private  SharedPreference prefconf ;
-    String urladdress = "http://192.168.1.6/Blood/displayposts.php";
+    String urladdress = "http://192.168.1.6/Blood/displaypostshomepage_notfinished.php";
     String urladdress2 = "http://192.168.1.6/Blood/displayprofilebyid.php";
     String[] name;
     String[] salut;
@@ -174,10 +175,11 @@ public class HomeActivity extends AppCompatActivity {
     String[] description;
     int[] icon;
     ArrayList<Model> arrayList = new ArrayList<Model>();
-    private Button pub;
+    private Button pub,ok;
     private Button donate;
     private static String URL_POST = "http://192.168.1.6/blood/addpost.php";
     private static final String TAG = "HomeActivity ";
+    FloatingActionButton floatingActionButton1,floatingActionButton2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -254,6 +256,41 @@ public class HomeActivity extends AppCompatActivity {
 
         pub = findViewById(R.id.btnPostdemande);
         donate = findViewById(R.id.donate);
+      //  ok = findViewById(R.id.menu_item1);
+
+
+
+
+        floatingActionButton1 = (FloatingActionButton)
+                findViewById(R.id.menu_item1);
+
+        floatingActionButton2 = (FloatingActionButton)
+                findViewById(R.id.menu_item2);
+
+
+
+        floatingActionButton1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                Intent registerIntent = new Intent(HomeActivity.this, classement.class);
+                HomeActivity.this.startActivity(registerIntent);
+            }
+        });
+
+
+
+        floatingActionButton2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                Intent registerIntent = new Intent(HomeActivity.this, postfini.class);
+                HomeActivity.this.startActivity(registerIntent);
+            }
+        });
+
 
 
         pub.setOnClickListener(new View.OnClickListener() {
@@ -534,7 +571,7 @@ public class HomeActivity extends AppCompatActivity {
 
 
                             imagepath[i] = jo2.getString("photo");
-                            email[i] = "je cherche  " + jo.getString("slots") + "  poches de  " + jo.getString("grpsanguin") + " à " + jo.getString("region");
+                            email[i] = "je  cherche  " + jo.getString("slots") + "  poches de    " + jo.getString("grpsanguin") + " à " + jo.getString("region");
                             number[i]=jo.getString("donors_number");
 
                             ;
