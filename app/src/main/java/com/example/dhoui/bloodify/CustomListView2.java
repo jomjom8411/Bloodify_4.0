@@ -238,16 +238,19 @@ public class CustomListView2 extends ArrayAdapter<String>{
     private String[] profilename;
     private String[] email;
     private String[] imagepath;
-    BufferedInputStream is,is2;
+    BufferedInputStream is,is2,is4,is3,is23;
     String line = null;
     String result = null;
-    String result2 = null;
+    String result2,result4 = null;
+    String result3 = null;
     private Activity context;
     Bitmap bitmap;
     private static String URL_CONFIRM = "http://192.168.1.6/blood/confirmdonate.php?Id=";
     private static String URL_ADD_Donor = "http://192.168.1.6/blood/add_donor.php?Id=";
     String urladdress="http://192.168.1.6/blood/posts_that_a_user_wants_to_donate_on_but_not_confirmed.php?id_user=";
     String urladdress2="http://192.168.1.6/blood/getapostbyitsId.php?Id=";
+    String urladdress3="http://192.168.1.6/blood/showprofile.php?Id=";
+    private static String URL_ADD_point = "http://192.168.1.6/blood/add_points.php?Id=";
 
     String getId;
     SessionManager sessionManager;
@@ -315,8 +318,9 @@ public class CustomListView2 extends ArrayAdapter<String>{
         viewHolder.confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                points();
                 confirm(position);
+
                 Toast.makeText(getContext(), "confirm donation" , Toast.LENGTH_SHORT).show();
                 Intent registerIntent = new Intent(getContext(), HistoriqueConfirme.class);
                 getContext().startActivity(registerIntent);
@@ -590,33 +594,6 @@ public class CustomListView2 extends ArrayAdapter<String>{
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                                 System.out.println("donarts jomjojjmmmmmmm" + p);
                                 //  String c = jo3.getString("donors_number");
                                 String tester;
@@ -791,7 +768,153 @@ public class CustomListView2 extends ArrayAdapter<String>{
 
 
 
+private  void  points() {
 
+
+
+
+
+    try {
+
+        URL url23 = new URL(urladdress3+getId);
+        HttpURLConnection con = (HttpURLConnection) url23.openConnection();
+        con.setRequestMethod("GET");
+        is23 = new BufferedInputStream(con.getInputStream());
+
+    } catch (Exception ex) {
+        ex.printStackTrace();
+    }
+    //content
+    try {
+        BufferedReader br23 = new BufferedReader(new InputStreamReader(is23));
+        StringBuilder sb23 = new StringBuilder();
+        while ((line = br23.readLine()) != null) {
+            sb23.append(line + "\n");
+        }
+        is23.close();
+        result3 = sb23.toString();
+
+    } catch (Exception ex) {
+        ex.printStackTrace();
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    StringRequest stringRequest3 = new StringRequest(Request.Method.POST, URL_ADD_point+getId, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+
+
+                    try {
+
+                        System.out.println(response);
+                        JSONObject jsonObject = new JSONObject(response);
+                        String success = jsonObject.getString("success");
+
+                        if (success.equals("1")){
+                            Toast.makeText(getContext(), "Success!", Toast.LENGTH_SHORT).show();
+
+                        }
+
+                    } catch (JSONException e) {
+
+                        e.printStackTrace();
+
+                        Toast.makeText(getContext(), "Error "+ e.toString(), Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+            },
+            new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
+                    Toast.makeText(getContext(), "Error "+ error.toString(), Toast.LENGTH_SHORT).show();
+                }
+            })
+    {
+        @Override
+        protected Map<String, String> getParams() throws AuthFailureError {
+            Map<String, String> params = new HashMap<>();
+
+
+
+
+            try {
+                JSONArray ja334 = new JSONArray(result3);
+
+                JSONObject jo334 = null;
+
+
+
+                jo334 = ja334.getJSONObject(0);
+
+                String points = jo334.getString("points");
+
+
+
+                System.out.println("donarts jomjom : " + points);
+                String tester;
+                tester =  Integer.toString(  Integer.valueOf(points)+1);
+
+
+                params.put("Id", getId);
+                params.put("points", tester);
+
+
+
+
+            } catch (Exception ex) {
+
+                ex.printStackTrace();
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            return params;
+        }
+    };
+
+    RequestQueue requestQueue3 = Volley.newRequestQueue(getContext());
+    requestQueue3.add(stringRequest3);
+
+}
 
 
 
