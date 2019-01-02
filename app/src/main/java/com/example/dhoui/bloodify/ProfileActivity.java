@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.HashMap;
@@ -64,7 +65,8 @@ public class ProfileActivity extends AppCompatActivity {
     private static String URL_READ = "http://192.168.1.6/Blood/read_detail.php";
     private static String URL_EDIT = "http://192.168.1.6/Blood/editprofile.php";
     private static String URL_UPLOAD = "http://192.168.1.6/Blood/upload.php";
-    private TextView name, email;
+    private TextView name, email,prename,age,tel;
+    private ImageView rank;
     SessionManager sessionManager;
     String getId;
     private Button logout,btn_photo_upload,historique;
@@ -80,15 +82,36 @@ public class ProfileActivity extends AppCompatActivity {
         prefconf = new SharedPreference(getApplicationContext());
         name = findViewById(R.id.name);
         email = findViewById(R.id.email);
+
+        prename = findViewById(R.id.prename);
+        age = findViewById(R.id.age);
+        tel = findViewById(R.id.tel);
+
         TextView id = (TextView) findViewById(R.id.id);
         btn_photo_upload = findViewById(R.id.btn_photo);
         profile_image = findViewById(R.id.profile_image);
         historique = findViewById(R.id.activity);
+
+
+
+
+
+
+
+
+
+        rank = findViewById(R.id.rank);
+
+        int rank_id = getResources().getIdentifier("@drawable/bronze", null, this.getPackageName());
+        rank.setImageResource(rank_id);
+
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavView_Bar);
         //   BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
         Menu menu = bottomNavigationView.getMenu();
         MenuItem menuItem = menu.getItem(4);
         menuItem.setChecked(true);
+
+
 
         sessionManager = new SessionManager(this);
         sessionManager.checkLogin();
@@ -214,10 +237,57 @@ public class ProfileActivity extends AppCompatActivity {
                                     JSONObject object = jsonArray.getJSONObject(i);
 
                                     String strName = object.getString("name").trim();
+                                    String strprename = object.getString("prename").trim();
                                     String strEmail = object.getString("email").trim();
+                                    String strtel = object.getString("tel").trim();
+                                    String strage = object.getString("age").trim();
+                                    String strpoints = object.getString("points").trim();
+                                    System.out.println("jomjom points :  "+strpoints);
 
                                     name.setText(strName);
                                     email.setText(strEmail);
+                                    prename.setText(strprename);
+                                    tel.setText(strtel);
+                                    age.setText(strage);
+
+
+                                   int tester =  (  Integer.valueOf(strpoints));
+
+                                  if (tester> 10 && tester<30){
+
+                                        rank.setImageDrawable(getResources().getDrawable(R.drawable.silver));
+
+                                  }
+
+
+                                    if (tester> 30 && tester<50){
+
+                                        rank.setImageDrawable(getResources().getDrawable(R.drawable.gold));
+
+                                    }
+
+                                    if (tester> 50 && tester<70){
+
+                                        rank.setImageDrawable(getResources().getDrawable(R.drawable.plat));
+
+                                    }
+
+
+
+                                    if (tester> 70 && tester<100){
+
+                                        rank.setImageDrawable(getResources().getDrawable(R.drawable.diam));
+
+                                    }
+
+
+                                    if (tester>100){
+
+                                        rank.setImageDrawable(getResources().getDrawable(R.drawable.chall));
+
+                                    }
+
+
 
 
                                 }
@@ -326,6 +396,10 @@ public class ProfileActivity extends AppCompatActivity {
     private void SaveEditDetail() {
 
         final String name = this.name.getText().toString().trim();
+        final String prename = this.prename.getText().toString().trim();
+        final String tel = this.tel.getText().toString().trim();
+        final String age = this.age.getText().toString().trim();
+
         final String email = this.email.getText().toString().trim();
         final String id = getId;
 
@@ -371,12 +445,12 @@ public class ProfileActivity extends AppCompatActivity {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
                 params.put("nom", name);
-                params.put("prenom", getId);
+                params.put("prenom", prename);
                 params.put("Email", email);
-                params.put("tel", getId);
+                params.put("tel", tel);
                 params.put("region", getId);
                 params.put("grpsanguin", getId);
-                params.put("age", getId);
+                params.put("age", age);
                 params.put("datedonation", getId);
                 params.put("password", getId);
                 params.put("Id", id);
