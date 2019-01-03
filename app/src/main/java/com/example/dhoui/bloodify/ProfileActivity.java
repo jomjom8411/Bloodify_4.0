@@ -70,7 +70,7 @@ public class ProfileActivity extends AppCompatActivity {
     SessionManager sessionManager;
     String getId;
     private Button logout,btn_photo_upload,historique;
-    private  TextView id;
+    private  TextView points;
     private Menu action;
     private Bitmap bitmap;
     CircleImageView profile_image;
@@ -82,12 +82,12 @@ public class ProfileActivity extends AppCompatActivity {
         prefconf = new SharedPreference(getApplicationContext());
         name = findViewById(R.id.name);
         email = findViewById(R.id.email);
-
+         points = (TextView) findViewById(R.id.id);
         prename = findViewById(R.id.prename);
         age = findViewById(R.id.age);
         tel = findViewById(R.id.tel);
 
-        TextView id = (TextView) findViewById(R.id.id);
+
         btn_photo_upload = findViewById(R.id.btn_photo);
         profile_image = findViewById(R.id.profile_image);
         historique = findViewById(R.id.activity);
@@ -118,7 +118,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         HashMap<String, String> user = sessionManager.getUserDetail();
         getId = user.get(sessionManager.ID);
-        id.setText(getId);
+
         logout= findViewById(R.id.btnlogout);
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -243,7 +243,7 @@ public class ProfileActivity extends AppCompatActivity {
                                     String strage = object.getString("age").trim();
                                     String strpoints = object.getString("points").trim();
                                     System.out.println("jomjom points :  "+strpoints);
-
+                                    points.setText(strpoints);
                                     name.setText(strName);
                                     email.setText(strEmail);
                                     prename.setText(strprename);

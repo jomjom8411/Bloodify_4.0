@@ -3,21 +3,39 @@ package com.example.dhoui.bloodify;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class TipActivity extends AppCompatActivity {
+
+    private ViewPager mSlideViewPager;
+    private LinearLayout mDotLayout;
+
+    private SliderAdapter sliderAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tip);
 
-        TextView title = (TextView) findViewById(R.id.activityTitle2);
-        title.setText("This is ActivityTwo");
+
+        mSlideViewPager = (ViewPager) findViewById(R.id.slideViewPager);
+        mDotLayout = (LinearLayout) findViewById(R.id.dotsLayout);
+
+        sliderAdapter = new SliderAdapter(this);
+
+        mSlideViewPager.setAdapter(sliderAdapter);
+
+
+
+
+
+
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavView_Bar);
       //  BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
