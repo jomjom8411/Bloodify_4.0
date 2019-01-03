@@ -28,7 +28,8 @@
         <activity android:name=".Historique_activity" />
         <activity android:name=".HistoriqueConfirme" />
         <activity android:name=".classement" />
-        <activity android:name=".postfini"></activity>
+        <activity android:name=".postfini" />
+        <activity android:name=".profile_user"></activity>
     </application>
 
 </manifest>

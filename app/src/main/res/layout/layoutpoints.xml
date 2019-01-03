@@ -45,6 +45,22 @@
             android:textSize="22dp" />
 
 
+        <Button
+            android:id="@+id/voirprofile"
+            android:layout_width="126dp"
+            android:layout_height="62dp"
+
+
+            android:layout_alignEnd="@+id/imageView"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="104dp"
+            android:layout_marginEnd="-66dp"
+            android:text="Voir Profile" />
+
+
+
+
+
         <ImageView
             android:id="@+id/imageView3"
             android:layout_width="35dp"
