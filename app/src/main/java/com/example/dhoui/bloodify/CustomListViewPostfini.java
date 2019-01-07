@@ -1,6 +1,7 @@
 package com.example.dhoui.bloodify;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -119,12 +120,30 @@ import java.util.Map;
 
             new GetImageFromURL(viewHolder.ivw).execute(imagepath[position]);
             final ViewHolder finalViewHolder = viewHolder;
-            viewHolder.donate.setOnClickListener(new View.OnClickListener() {
+            viewHolder.details.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                       donate(position);
-                finalViewHolder.donate.setEnabled(false);
-                    Toast.makeText(getContext(), "u have donated" +testpost, Toast.LENGTH_SHORT).show();
+
+
+                    Intent intent = new Intent(getContext(),details.class);
+
+
+                    String test = Integer.toString(position);
+                    intent.putExtra("position",test);
+
+
+
+
+
+                    Toast.makeText(getContext(), "voir details : " + position , Toast.LENGTH_SHORT).show();
+
+                    getContext().startActivity(intent);
+
+
+
+
+                   // finalViewHolder.details.setEnabled(false);
+                    Toast.makeText(getContext(), "details" +test, Toast.LENGTH_SHORT).show();
 
                 }
             })
@@ -141,7 +160,7 @@ import java.util.Map;
             TextView tvw3;
             ImageView ivw;
             ImageView ivw2;
-            Button donate;
+            Button details;
 
 
             ViewHolder(View v) {
@@ -150,7 +169,7 @@ import java.util.Map;
                 tvw3 = (TextView) v.findViewById(R.id.number);
                 ivw = (ImageView) v.findViewById(R.id.imageView);
                 ivw2 = (ImageView) v.findViewById(R.id.imageView3);
-                donate =v.findViewById(R.id.donate);
+                details =v.findViewById(R.id.details);
 
 
 
@@ -196,106 +215,7 @@ import java.util.Map;
 
 
 
-    private void donate( final int position) {
 
-
-
-
-            try {
-
-            URL url = new URL(urladdress);
-            HttpURLConnection con = (HttpURLConnection) url.openConnection();
-            con.setRequestMethod("GET");
-            is = new BufferedInputStream(con.getInputStream());
-
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        //content
-        try {
-            BufferedReader br = new BufferedReader(new InputStreamReader(is));
-            StringBuilder sb = new StringBuilder();
-            while ((line = br.readLine()) != null) {
-                sb.append(line + "\n");
-            }
-            is.close();
-            result = sb.toString();
-
-        } catch (Exception ex) {
-            ex.printStackTrace();
-
-        }
-
-
-
-
-        StringRequest StringRequest = new StringRequest(Request.Method.POST, URL_DONATE, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                try {
-                    JSONObject jsonObject = new JSONObject(response);
-                    String success = jsonObject.getString("success");
-
-                    if (success.equals("1")) {
-                        Toast.makeText(getContext(), "Compte crée !", Toast.LENGTH_SHORT).show();
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    Toast.makeText(getContext(), "Erreur !" + e.toString(), Toast.LENGTH_SHORT).show();
-
-                }
-
-
-            }
-        },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getContext(), "Erreur !" + error.toString(), Toast.LENGTH_SHORT).show();
-
-                    }
-                }) {
-
-
-        @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-
-
-
-
-
-                try {
-                    JSONArray ja2 = new JSONArray(result);
-
-                    JSONObject jo2 = null;
-                    testpost = new String[ja2.length()];
-
-                    jo2 = ja2.getJSONObject(position);
-                    String e = jo2.getString("Id");
-
-                    System.out.println("saslut jomjojjmmmmmmm"+e);
-
-                    params.put("id_user", getId);
-                    params.put("id_post", e);
-                } catch (Exception ex) {
-
-                    ex.printStackTrace();
-                }
-
-
-                return params;
-
-
-            }
-        };
-
-        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
-        requestQueue.add(StringRequest);
-
-
-
-    }
 
 
 

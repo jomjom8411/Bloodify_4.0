@@ -212,16 +212,7 @@ import android.content.*;
 
 
 
-    private void donate( final int position) {
 
-
-
-
-
-
-
-
-    }
 
 
 

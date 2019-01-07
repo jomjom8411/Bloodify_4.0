@@ -52,9 +52,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-
-
-
+import io.ghyeok.stickyswitch.widget.StickySwitch;
 
 
 public class ProfileActivity extends AppCompatActivity {
@@ -65,8 +63,9 @@ public class ProfileActivity extends AppCompatActivity {
     private static String URL_READ = "http://192.168.1.6/Blood/read_detail.php";
     private static String URL_EDIT = "http://192.168.1.6/Blood/editprofile.php";
     private static String URL_UPLOAD = "http://192.168.1.6/Blood/upload.php";
+    private static String URL_anonyme = "http://192.168.1.6/blood/anonyme.php?Id=";
     private TextView name, email,prename,age,tel;
-    private ImageView rank;
+    private ImageView rank,logout2;
     SessionManager sessionManager;
     String getId;
     private Button logout,btn_photo_upload,historique;
@@ -94,7 +93,25 @@ public class ProfileActivity extends AppCompatActivity {
 
 
 
+        StickySwitch stickySwitch = findViewById(R.id.stickySwitch);
+        stickySwitch.setOnSelectedChangeListener(new StickySwitch.OnSelectedChangeListener() {
+            @Override
+            public void onSelectedChange(StickySwitch.Direction direction, String s) {
 
+
+                Toast.makeText(ProfileActivity.this, "Selected " + s, Toast.LENGTH_SHORT).show();
+
+                if(s.equals("Anon")) {
+                    anonyme();
+                    Toast.makeText(ProfileActivity.this, "yo maan " , Toast.LENGTH_SHORT).show();}
+
+
+
+                if(s.equals("Connue")) {
+                    Connue();
+                    Toast.makeText(ProfileActivity.this, "yo maan " , Toast.LENGTH_SHORT).show();}
+            }
+        });
 
 
 
@@ -119,8 +136,8 @@ public class ProfileActivity extends AppCompatActivity {
         HashMap<String, String> user = sessionManager.getUserDetail();
         getId = user.get(sessionManager.ID);
 
-        logout= findViewById(R.id.btnlogout);
-        logout.setOnClickListener(new View.OnClickListener() {
+        logout2= findViewById(R.id.btnlogout);
+        logout2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 sessionManager.logout();
@@ -632,6 +649,139 @@ public class ProfileActivity extends AppCompatActivity {
     public void toastMessage(String message){
         Toast.makeText(this,message,Toast.LENGTH_SHORT).show();
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    private void anonyme() {
+
+
+
+
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_anonyme+getId,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+
+                        try {
+
+                            System.out.println(response);
+                            JSONObject jsonObject = new JSONObject(response);
+                            String success = jsonObject.getString("success");
+
+                            if (success.equals("1")){
+                                Toast.makeText(ProfileActivity.this, "vous etes anonyme!", Toast.LENGTH_SHORT).show();
+
+                            }
+
+                        } catch (JSONException e) {
+                            Log.e(TAG, "onResponse: ", e);
+                            e.printStackTrace();
+
+                            Toast.makeText(ProfileActivity.this, "Error "+ e.toString(), Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                        Toast.makeText(ProfileActivity.this, "Error "+ error.toString(), Toast.LENGTH_SHORT).show();
+                    }
+                })
+        {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+
+                params.put("Id", getId);
+                params.put("anonyme", "1");
+
+                return params;
+            }
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
+
+    }
+
+
+
+
+
+
+    private void Connue() {
+
+
+
+
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_anonyme+getId,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+
+                        try {
+
+                            System.out.println(response);
+                            JSONObject jsonObject = new JSONObject(response);
+                            String success = jsonObject.getString("success");
+
+                            if (success.equals("1")){
+                                Toast.makeText(ProfileActivity.this, "votre identité est révélé !", Toast.LENGTH_SHORT).show();
+
+                            }
+
+                        } catch (JSONException e) {
+                            Log.e(TAG, "onResponse: ", e);
+                            e.printStackTrace();
+
+                            Toast.makeText(ProfileActivity.this, "Error "+ e.toString(), Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                        Toast.makeText(ProfileActivity.this, "Error "+ error.toString(), Toast.LENGTH_SHORT).show();
+                    }
+                })
+        {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+
+                params.put("Id", getId);
+                params.put("anonyme", "0");
+
+                return params;
+            }
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
+
+    }
+
+
+
 
 
 

@@ -1,5 +1,9 @@
 package com.example.dhoui.bloodify;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.DialogInterface;
@@ -58,6 +62,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
@@ -70,11 +76,12 @@ public class profile_user extends AppCompatActivity {
     BufferedInputStream is,is2;
     String line = null;
     String result = null;
-
+    private static final int REQUEST_CALL = 1;
 
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_user);
 
@@ -85,12 +92,31 @@ public class profile_user extends AppCompatActivity {
         email = findViewById(R.id.email);
 
         rank = findViewById(R.id.rank);
+        ImageView call = findViewById(R.id.call);
+        ImageView message = findViewById(R.id.message);
 
+        call.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                makePhoneCall();
+            }
+        });
+
+
+        message.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent2 = new Intent(profile_user.this, sendingmessage.class);
+                startActivity(intent2);
+                overridePendingTransition(0, 0);
+            }
+        });
 
        profile=findViewById(R.id.profile_image);
          ok.setText("salut");
         Intent intent = getIntent();
          String value1 = intent.getStringExtra("position");
+
        // Toast.makeText(profile_user.this, "dans le profile : " + value1 , Toast.LENGTH_SHORT).show();
 
        // ok.setText(value1);
@@ -148,6 +174,15 @@ public class profile_user extends AppCompatActivity {
 
             prenom.setText(prenom2);
 
+
+            Intent intent2 = new Intent(profile_user.this,sendingmessage.class);
+
+
+            intent.putExtra("tel",te2);
+            Toast.makeText(this, "Permission :" + te2, Toast.LENGTH_SHORT).show();
+            profile_user.this.startActivity(intent2);
+
+
             tel.setText(te2);
             email.setText(email2);
             ok.setText(points);
@@ -157,22 +192,31 @@ public class profile_user extends AppCompatActivity {
 
 
 
+
+
+
+
+
+
+
+
+
             int tester =  (  Integer.valueOf(points));
 
-            if (tester> 10 && tester<30){
+            if (tester>= 10 && tester<30){
 
                 rank.setImageDrawable(getResources().getDrawable(R.drawable.silver));
 
             }
 
 
-            if (tester> 30 && tester<50){
+            if (tester>= 30 && tester<50){
 
                 rank.setImageDrawable(getResources().getDrawable(R.drawable.gold));
 
             }
 
-            if (tester> 50 && tester<70){
+            if (tester>= 50 && tester<70){
 
                 rank.setImageDrawable(getResources().getDrawable(R.drawable.plat));
 
@@ -180,14 +224,14 @@ public class profile_user extends AppCompatActivity {
 
 
 
-            if (tester> 70 && tester<100){
+            if (tester>= 70 && tester<100){
 
                 rank.setImageDrawable(getResources().getDrawable(R.drawable.diam));
 
             }
 
 
-            if (tester>100){
+            if (tester>=101){
 
                 rank.setImageDrawable(getResources().getDrawable(R.drawable.chall));
 
@@ -234,9 +278,142 @@ public class profile_user extends AppCompatActivity {
 
 
 
+
     }
 
 
 
 
+
+
+
+
+
+
+    private void makePhoneCall() {
+
+
+
+        try {
+
+            URL url = new URL(urladdress);
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            con.setRequestMethod("GET");
+            is = new BufferedInputStream(con.getInputStream());
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        //content
+        try {
+            BufferedReader br = new BufferedReader(new InputStreamReader(is));
+            StringBuilder sb = new StringBuilder();
+            while ((line = br.readLine()) != null) {
+                sb.append(line + "\n");
+            }
+            is.close();
+            result = sb.toString();
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+
+        }
+
+
+
+
+
+        try {
+            JSONArray ja = new JSONArray(result);
+
+            JSONObject jo = null;
+            Intent intent = getIntent();
+            String value1 = intent.getStringExtra("position");
+            int test = Integer.valueOf(value1);
+
+            jo = ja.getJSONObject(test);
+            String nom2=jo.getString("nom");
+            String prenom2=jo.getString("prenom");
+            String te2=jo.getString("tel");
+            String email2=jo.getString("Email");
+
+            String points=jo.getString("points");
+
+
+
+
+
+            String number = te2;
+            if (number.trim().length() > 0) {
+
+                if (ContextCompat.checkSelfPermission(profile_user.this,
+                        Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(profile_user.this,
+                            new String[]{Manifest.permission.CALL_PHONE}, REQUEST_CALL);
+                } else {
+                    String dial = "tel:" + number;
+                    startActivity(new Intent(Intent.ACTION_CALL, Uri.parse(dial)));
+                }
+
+            } else {
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        } catch (Exception ex) {
+
+            ex.printStackTrace();
+        }
+
+
+
+
+
+
+
+
+
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == REQUEST_CALL) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                makePhoneCall();
+            } else {
+                Toast.makeText(this, "Permission DENIED", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
 }
+

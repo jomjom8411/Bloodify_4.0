@@ -175,35 +175,50 @@
 
 
     <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        >
+
+        <io.ghyeok.stickyswitch.widget.StickySwitch
+            android:id="@+id/stickySwitch"
+            android:layout_width="136dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="248dp"
+            android:layout_marginTop="109dp"
+            app:ss_iconPadding="18dp"
+            app:ss_iconSize="30dp"
+            app:ss_leftIcon="@drawable/anon"
+            app:ss_leftText="Anon"
+            app:ss_rightIcon="@drawable/head"
+            app:ss_rightText="Connue"
+            app:ss_selectedTextSize="14sp"
+            app:ss_sliderBackgroundColor="#08A"
+            app:ss_switchColor="#0AF"
+            app:ss_textColor="#200"
+            app:ss_textSize="12sp" />
+    </RelativeLayout>
+
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/bottomBar"
         android:layout_alignParentStart="true"
         android:layout_marginStart="0dp"
-        android:layout_marginBottom="-8dp">
-
-        <Button
-            android:id="@+id/btnlogout"
-            android:layout_width="78dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="296dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="417dp"
-            android:text="logout" />
+        android:layout_marginBottom="-19dp">
 
         <TextView
             android:id="@+id/id"
-            android:layout_width="wrap_content"
-            android:layout_height="39dp"
+            android:layout_width="68dp"
+            android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginStart="49dp"
-            android:layout_marginTop="45dp"
-            android:layout_marginEnd="288dp"
+            android:layout_marginStart="27dp"
+            android:layout_marginTop="47dp"
+            android:layout_marginEnd="289dp"
             android:text="id" />
 
         <Button
@@ -223,8 +238,7 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_marginStart="23dp"
-            android:layout_marginTop="89dp"
-             />
+            android:layout_marginTop="89dp" />
 
         <ImageView
             android:id="@+id/imageView4"
@@ -235,6 +249,15 @@
             android:layout_marginTop="-4dp"
             android:layout_marginEnd="-29dp"
             app:srcCompat="@drawable/points" />
+
+        <ImageView
+            android:id="@+id/btnlogout"
+            android:layout_width="35dp"
+            android:layout_height="31dp"
+            android:layout_alignBottom="@+id/imageView4"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="51dp"
+            app:srcCompat="@drawable/logout" />
 
     </RelativeLayout>
 

@@ -6,4 +6,7 @@
     <color name="colorText">#000000</color>
     <color name="colorPrimaryDark2">#99000d</color>
     <color name="colorAccent2">#a10005</color>
+    <color name="colorPrimary3">#3F51B5</color>
+    <color name="colorPrimaryDark3">#303F9F</color>
+    <color name="colorAccent3">#FF4081</color>
 </resources>

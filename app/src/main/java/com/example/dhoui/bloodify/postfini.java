@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.ListView;
+import android.support.design.widget.BottomNavigationView;
 
 import java.io.BufferedInputStream;
 import java.util.ArrayList;
@@ -58,7 +59,8 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
-
+import android.view.Menu;
+import android.view.MenuItem;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -182,6 +184,17 @@ public class postfini extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -488,7 +501,7 @@ public class postfini extends AppCompatActivity {
 
 
                             imagepath[i] = jo2.getString("photo");
-                            email[i] = "a  cherché  " + jo.getString("slots") + "  poches de    " + jo.getString("grpsanguin") + " à " + jo.getString("region");
+                            email[i] = "a cherché   " + jo.getString("slots") + "  poches de    " + jo.getString("grpsanguin") + " à " + jo.getString("region");
                             number[i]=jo.getString("donors_number");
 
                             ;
