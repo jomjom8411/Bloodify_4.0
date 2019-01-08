@@ -106,9 +106,9 @@ public class profile_user extends AppCompatActivity {
         message.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent2 = new Intent(profile_user.this, sendingmessage.class);
+                Intent intent2 = new Intent(Intent.ACTION_VIEW);
+                intent2.setData(Uri.parse("smsto:"+"55232623"));
                 startActivity(intent2);
-                overridePendingTransition(0, 0);
             }
         });
 
@@ -120,6 +120,14 @@ public class profile_user extends AppCompatActivity {
        // Toast.makeText(profile_user.this, "dans le profile : " + value1 , Toast.LENGTH_SHORT).show();
 
        // ok.setText(value1);
+
+
+
+
+
+
+
+
 
 
 
@@ -175,12 +183,11 @@ public class profile_user extends AppCompatActivity {
             prenom.setText(prenom2);
 
 
-            Intent intent2 = new Intent(profile_user.this,sendingmessage.class);
 
 
-            intent.putExtra("tel",te2);
-            Toast.makeText(this, "Permission :" + te2, Toast.LENGTH_SHORT).show();
-            profile_user.this.startActivity(intent2);
+
+
+
 
 
             tel.setText(te2);
@@ -269,6 +276,57 @@ public class profile_user extends AppCompatActivity {
 
 
 
+
+
+
+
+
+        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavView_Bar);
+        //BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
+        Menu menu = bottomNavigationView.getMenu();
+        MenuItem menuItem = menu.getItem(0);
+        menuItem.setChecked(true);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.nav_home:
+                        Intent intent0 = new Intent(profile_user.this, HomeActivity.class);
+                        startActivity(intent0);
+                        overridePendingTransition(0, 0);
+                        break;
+
+
+                    case R.id.nav_message:
+                        Intent intent1 = new Intent(profile_user.this, MessageActivity.class);
+                        startActivity(intent1);
+                        overridePendingTransition(0, 0);
+                        break;
+
+                    case R.id.nav_tip:
+                        Intent intent2 = new Intent(profile_user.this, TipActivity.class);
+                        startActivity(intent2);
+                        overridePendingTransition(0, 0);
+                        break;
+
+                    case R.id.nav_hospital:
+                        Intent intent3 = new Intent(profile_user.this, HospitalActivity.class);
+                        startActivity(intent3);
+                        overridePendingTransition(0, 0);
+                        break;
+
+                    case R.id.nav_profile:
+                        Intent intent4 = new Intent(profile_user.this, ProfileActivity.class);
+                        startActivity(intent4);
+                        overridePendingTransition(0, 0);
+                        break;
+                }
+
+
+                return false;
+            }
+        });
 
 
 

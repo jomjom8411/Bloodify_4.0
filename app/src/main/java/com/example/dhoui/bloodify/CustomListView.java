@@ -182,7 +182,7 @@ import android.widget.AdapterView;
         private Heart mHeart;
 
         private static String URL_DONATE = "http://192.168.1.6/blood/donate2.php";
-    String urladdress = "http://192.168.1.6/blood/displayposts.php";
+    String urladdress = "http://192.168.1.6/blood/displaypostshomepage_notfinished.php";
 
         public CustomListView(Activity context, final String[] profilename, String[] email, String[] imagepath, String[] number ) {
             super(context, R.layout.layout, profilename);

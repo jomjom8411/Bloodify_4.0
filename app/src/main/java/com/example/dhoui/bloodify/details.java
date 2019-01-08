@@ -3,9 +3,13 @@ package com.example.dhoui.bloodify;
         import android.app.Activity;
         import android.content.Intent;
         import android.os.StrictMode;
+        import android.support.annotation.NonNull;
+        import android.support.design.widget.BottomNavigationView;
         import android.support.v7.app.AppCompatActivity;
         import android.os.Bundle;
         import android.view.GestureDetector;
+        import android.view.Menu;
+        import android.view.MenuItem;
         import android.widget.ArrayAdapter;
         import android.widget.Button;
         import android.widget.ImageView;
@@ -209,6 +213,55 @@ public class details extends AppCompatActivity {
         etUsername.setText(username);
         etAge.setText(age + "");*/
 
+
+
+
+        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavView_Bar);
+        //BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
+        Menu menu = bottomNavigationView.getMenu();
+        MenuItem menuItem = menu.getItem(0);
+        menuItem.setChecked(true);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.nav_home:
+                        Intent intent0 = new Intent(details.this, HomeActivity.class);
+                        startActivity(intent0);
+                        overridePendingTransition(0, 0);
+                        break;
+
+
+                    case R.id.nav_message:
+                        Intent intent1 = new Intent(details.this, MessageActivity.class);
+                        startActivity(intent1);
+                        overridePendingTransition(0, 0);
+                        break;
+
+                    case R.id.nav_tip:
+                        Intent intent2 = new Intent(details.this, TipActivity.class);
+                        startActivity(intent2);
+                        overridePendingTransition(0, 0);
+                        break;
+
+                    case R.id.nav_hospital:
+                        Intent intent3 = new Intent(details.this, HospitalActivity.class);
+                        startActivity(intent3);
+                        overridePendingTransition(0, 0);
+                        break;
+
+                    case R.id.nav_profile:
+                        Intent intent4 = new Intent(details.this, ProfileActivity.class);
+                        startActivity(intent4);
+                        overridePendingTransition(0, 0);
+                        break;
+                }
+
+
+                return false;
+            }
+        });
 
 
 

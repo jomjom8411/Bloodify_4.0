@@ -339,6 +339,58 @@ public class postfini extends AppCompatActivity {
 
 
 
+        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavView_Bar);
+        //BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
+        Menu menu = bottomNavigationView.getMenu();
+        MenuItem menuItem = menu.getItem(0);
+        menuItem.setChecked(true);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.nav_home:
+                        Intent intent0 = new Intent(postfini.this, HomeActivity.class);
+                        startActivity(intent0);
+                        overridePendingTransition(0, 0);
+                        break;
+
+
+                    case R.id.nav_message:
+                        Intent intent1 = new Intent(postfini.this, MessageActivity.class);
+                        startActivity(intent1);
+                        overridePendingTransition(0, 0);
+                        break;
+
+                    case R.id.nav_tip:
+                        Intent intent2 = new Intent(postfini.this, TipActivity.class);
+                        startActivity(intent2);
+                        overridePendingTransition(0, 0);
+                        break;
+
+                    case R.id.nav_hospital:
+                        Intent intent3 = new Intent(postfini.this, HospitalActivity.class);
+                        startActivity(intent3);
+                        overridePendingTransition(0, 0);
+                        break;
+
+                    case R.id.nav_profile:
+                        Intent intent4 = new Intent(postfini.this, ProfileActivity.class);
+                        startActivity(intent4);
+                        overridePendingTransition(0, 0);
+                        break;
+                }
+
+
+                return false;
+            }
+        });
+
+
+
+
+
+
 
 
 

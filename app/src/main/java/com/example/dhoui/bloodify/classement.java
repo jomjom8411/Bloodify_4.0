@@ -19,7 +19,11 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.ListView;
-
+import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.ListView;
+import java.util.ArrayList;
 import java.io.BufferedInputStream;
 import java.util.ArrayList;
 import android.support.v7.app.ActionBar;
@@ -179,7 +183,8 @@ public class classement extends AppCompatActivity {
     private static String URL_POST = "http://192.168.1.6/blood/addpost.php";
     private static final String TAG = "HomeActivity ";
     FloatingActionButton floatingActionButton1,floatingActionButton2;
-
+    CustomListViewPoints adapter;
+    CustomListViewPoints customListView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -223,8 +228,6 @@ public class classement extends AppCompatActivity {
         collectData();
         CustomListViewPoints customListView = new CustomListViewPoints(this, name, email, imagepath, number);
         listView.setAdapter(customListView);
-
-
 
 
 
@@ -321,6 +324,60 @@ public class classement extends AppCompatActivity {
 
 
 
+
+
+
+
+
+
+
+
+        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavView_Bar);
+        //BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
+        Menu menu = bottomNavigationView.getMenu();
+        MenuItem menuItem = menu.getItem(0);
+        menuItem.setChecked(true);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.nav_home:
+                        Intent intent0 = new Intent(classement.this, HomeActivity.class);
+                        startActivity(intent0);
+                        overridePendingTransition(0, 0);
+                        break;
+
+
+                    case R.id.nav_message:
+                        Intent intent1 = new Intent(classement.this, MessageActivity.class);
+                        startActivity(intent1);
+                        overridePendingTransition(0, 0);
+                        break;
+
+                    case R.id.nav_tip:
+                        Intent intent2 = new Intent(classement.this, TipActivity.class);
+                        startActivity(intent2);
+                        overridePendingTransition(0, 0);
+                        break;
+
+                    case R.id.nav_hospital:
+                        Intent intent3 = new Intent(classement.this, HospitalActivity.class);
+                        startActivity(intent3);
+                        overridePendingTransition(0, 0);
+                        break;
+
+                    case R.id.nav_profile:
+                        Intent intent4 = new Intent(classement.this, ProfileActivity.class);
+                        startActivity(intent4);
+                        overridePendingTransition(0, 0);
+                        break;
+                }
+
+
+                return false;
+            }
+        });
 
 
 
@@ -477,6 +534,9 @@ public class classement extends AppCompatActivity {
 
 
 
+
+
+
     }
 
 
@@ -497,71 +557,68 @@ public class classement extends AppCompatActivity {
 
 
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+       final CustomListViewPoints customListView = new CustomListViewPoints(this, name, email, imagepath, number);
+        listView.setAdapter(customListView);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-    private void donate() {
-
-
-
-
-        StringRequest StringRequest = new StringRequest(Request.Method.POST, URL_DONATE, new Response.Listener<String>() {
+        MenuItem myActionMenuItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView)myActionMenuItem.getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public void onResponse(String response) {
-                try {
-                    JSONObject jsonObject = new JSONObject(response);
-                    String success = jsonObject.getString("success");
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
 
-                    if (success.equals("1")) {
-                        //   Toast.makeText(getContext(), "Compte crée !", Toast.LENGTH_SHORT).show();
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    //    Toast.makeText(getContext(), "Erreur !" + e.toString(), Toast.LENGTH_SHORT).show();
+            @Override
+            public boolean onQueryTextChange(String s) {
 
+                if (TextUtils.isEmpty(s)){
+                    customListView.getFilter().filter("");
                 }
+                else {
+                    customListView.getFilter().filter(s);
+                }
+                return true;
 
 
-            }
-        },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        // Toast.makeText(getContext(), "Erreur !" + error.toString(), Toast.LENGTH_SHORT).show();
 
-                    }
-                }) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-
-                params.put("id_user", getId);
-                params.put("id_post", getId);
-                params.put("etat", getId);
+                            }
+        });
 
 
-                return params;
+        return true;
 
 
-            }
-        };
 
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(StringRequest);
+
+
+
+
+
+
+
+
 
 
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

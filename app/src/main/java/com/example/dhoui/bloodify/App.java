@@ -25,7 +25,7 @@ public class App extends Application {
                     "Channel 1",
                     NotificationManager.IMPORTANCE_HIGH
             );
-            channel1.setDescription("This is Channel 1");
+            channel1.setDescription("Bloodify");
 
 
 

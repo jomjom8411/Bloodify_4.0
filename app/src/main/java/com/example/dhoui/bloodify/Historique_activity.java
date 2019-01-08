@@ -67,6 +67,62 @@ public class Historique_activity extends AppCompatActivity {
 
 
 
+        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavView_Bar);
+        //BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
+        Menu menu = bottomNavigationView.getMenu();
+        MenuItem menuItem = menu.getItem(0);
+        menuItem.setChecked(true);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.nav_home:
+                        Intent intent0 = new Intent(Historique_activity.this, HomeActivity.class);
+                        startActivity(intent0);
+                        overridePendingTransition(0, 0);
+                        break;
+
+
+                    case R.id.nav_message:
+                        Intent intent1 = new Intent(Historique_activity.this, MessageActivity.class);
+                        startActivity(intent1);
+                        overridePendingTransition(0, 0);
+                        break;
+
+                    case R.id.nav_tip:
+                        Intent intent2 = new Intent(Historique_activity.this, TipActivity.class);
+                        startActivity(intent2);
+                        overridePendingTransition(0, 0);
+                        break;
+
+                    case R.id.nav_hospital:
+                        Intent intent3 = new Intent(Historique_activity.this, HospitalActivity.class);
+                        startActivity(intent3);
+                        overridePendingTransition(0, 0);
+                        break;
+
+                    case R.id.nav_profile:
+                        Intent intent4 = new Intent(Historique_activity.this, ProfileActivity.class);
+                        startActivity(intent4);
+                        overridePendingTransition(0, 0);
+                        break;
+                }
+
+
+                return false;
+            }
+        });
+
+
+
+
+
+
+
+
+
+
 
 
 

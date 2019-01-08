@@ -2,6 +2,7 @@ package com.example.dhoui.bloodify;
 
 
 import android.app.Activity;
+import android.app.Notification;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -226,6 +227,14 @@ import android.widget.TextView;
 import java.io.InputStream;
 import android.widget.AdapterView;
 
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.EditText;
+
+import static com.example.dhoui.bloodify.App.CHANNEL_1_ID;
 
 
 
@@ -234,7 +243,7 @@ import android.widget.AdapterView;
  */
 
 public class CustomListView2 extends ArrayAdapter<String>{
-
+    private NotificationManagerCompat notificationManager;
     private String[] profilename;
     private String[] email;
     private String[] imagepath;
@@ -311,7 +320,7 @@ public class CustomListView2 extends ArrayAdapter<String>{
             viewHolder=(ViewHolder)r.getTag();
 
         }
-
+        notificationManager = NotificationManagerCompat.from(getContext());
         viewHolder.tvw1.setText(profilename[position]);
         viewHolder.tvw2.setText(email[position]);
         new GetImageFromURL(viewHolder.ivw).execute(imagepath[position]);
@@ -320,7 +329,16 @@ public class CustomListView2 extends ArrayAdapter<String>{
             public void onClick(View v) {
                 points();
                 confirm(position);
+                Notification notification = new NotificationCompat.Builder(getContext(), CHANNEL_1_ID)
+                        .setSmallIcon(R.drawable.ic_launcher_background)
+                        .setContentTitle("toutes nos félicitations")
+                        .setContentText("Vous avez reçu 1 point de plus dans votre score :) ")
 
+                        .setPriority(NotificationCompat.PRIORITY_HIGH)
+                        .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+                        .build();
+
+                notificationManager.notify(1, notification);
                 Toast.makeText(getContext(), "confirm donation" , Toast.LENGTH_SHORT).show();
                 Intent registerIntent = new Intent(getContext(), HistoriqueConfirme.class);
                 getContext().startActivity(registerIntent);

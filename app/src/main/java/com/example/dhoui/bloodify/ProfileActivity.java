@@ -53,9 +53,17 @@ import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import io.ghyeok.stickyswitch.widget.StickySwitch;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.Priority;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.annotation.GlideModule;
+import com.bumptech.glide.module.AppGlideModule;
+import com.bumptech.glide.annotation.GlideModule;
+import com.bumptech.glide.module.AppGlideModule;
 
-
-public class ProfileActivity extends AppCompatActivity {
+public class ProfileActivity extends AppCompatActivity  {
 
     private SharedPreference prefconf ;
 
@@ -73,6 +81,7 @@ public class ProfileActivity extends AppCompatActivity {
     private Menu action;
     private Bitmap bitmap;
     CircleImageView profile_image;
+    private Uri uri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,7 +99,9 @@ public class ProfileActivity extends AppCompatActivity {
         btn_photo_upload = findViewById(R.id.btn_photo);
         profile_image = findViewById(R.id.profile_image);
         historique = findViewById(R.id.activity);
-
+           uri=Uri.parse("https://192.168.1.6/blood/profile_image/male.png");
+        profile_image.setImageURI(null);
+        profile_image.setImageURI(uri);
 
 
         StickySwitch stickySwitch = findViewById(R.id.stickySwitch);
@@ -270,20 +281,20 @@ public class ProfileActivity extends AppCompatActivity {
 
                                    int tester =  (  Integer.valueOf(strpoints));
 
-                                  if (tester> 10 && tester<30){
+                                  if (tester> 10 && tester<=30){
 
                                         rank.setImageDrawable(getResources().getDrawable(R.drawable.silver));
 
                                   }
 
 
-                                    if (tester> 30 && tester<50){
+                                    if (tester> 30 && tester<=50){
 
                                         rank.setImageDrawable(getResources().getDrawable(R.drawable.gold));
 
                                     }
 
-                                    if (tester> 50 && tester<70){
+                                    if (tester> 50 && tester <=70){
 
                                         rank.setImageDrawable(getResources().getDrawable(R.drawable.plat));
 
@@ -291,7 +302,7 @@ public class ProfileActivity extends AppCompatActivity {
 
 
 
-                                    if (tester> 70 && tester<100){
+                                    if (tester> 70 && tester<=100){
 
                                         rank.setImageDrawable(getResources().getDrawable(R.drawable.diam));
 

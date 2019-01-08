@@ -39,7 +39,18 @@ import java.util.HashMap;
 import java.util.Map;
 import  android.widget.*;
 import android.content.*;
+import android.content.Context;
+import android.content.Intent;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by jaiso on 13-02-2018.
@@ -49,6 +60,10 @@ import android.content.*;
 
     public class CustomListViewPoints extends ArrayAdapter<String>  {
 
+    Context mContext;
+    LayoutInflater inflater;
+    List<Model> modellist;
+    ArrayList<Model> arrayList;
         private String[] profilename;
         private String[] email;
     private String[] number;
@@ -73,9 +88,9 @@ import android.content.*;
     String urladdress = "http://192.168.1.6/blood/displayposts.php";
 
         public CustomListViewPoints(Activity context, final String[] profilename, String[] email, String[] imagepath, String[] number ) {
-            super(context, R.layout.layoutpoints, profilename);
-            this.context = context;
-            this.profilename = profilename;
+            super(context, R.layout.layoutpoints, profilename);this.context = context;
+            this
+            .profilename = profilename;
             this.email = email;
             this.number = number;
             this.imagepath = imagepath;
@@ -206,6 +221,7 @@ import android.content.*;
                 imgView.setImageBitmap(bitmap);
             }
         }
+
 
 
 
