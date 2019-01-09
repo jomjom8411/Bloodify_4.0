@@ -36,10 +36,10 @@ public class details extends AppCompatActivity {
     String urladdress2 = "http://192.168.1.6/Blood/getcolumsfromdonatebyidpost.php?id_post=";
     String urladdress3 = "http://192.168.1.6/Blood/profile_id.php?Id=";
 
-    String[] name;
+    String[] name={};
     String[] salut;
-    String[] email,number;
-    String[] imagepath;
+    String[] email={},number={};
+    String[] imagepath={};
     String[] test4;
     ListView listView;
     BufferedInputStream is,is2,is3;
@@ -449,7 +449,7 @@ public class details extends AppCompatActivity {
 
                     test2[j] = jo2.getString("id_user");
 
-            Toast.makeText(details.this, "haw id user !"+test2[j], Toast.LENGTH_SHORT).show();
+
 
              chaine=chaine+test2[j]+" "+chaine1;
 
@@ -463,8 +463,8 @@ public class details extends AppCompatActivity {
                         HttpURLConnection con = (HttpURLConnection) url3.openConnection();
                         con.setRequestMethod("GET");
                         is3 = new BufferedInputStream(con.getInputStream());
-                        Toast.makeText(details.this, "dammn !"+chaine, Toast.LENGTH_SHORT).show();
-                        Toast.makeText(details.this, "dammn !"+chaine, Toast.LENGTH_SHORT).show();
+
+
 
                     } catch (Exception ex) {
                         ex.printStackTrace();
@@ -568,7 +568,7 @@ public class details extends AppCompatActivity {
 
 
 
-                Toast.makeText(details.this, "haw f west app !"+ chaine, Toast.LENGTH_SHORT).show();
+
 
 
 

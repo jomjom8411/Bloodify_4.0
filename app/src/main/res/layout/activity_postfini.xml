@@ -4,12 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".postfini">
+    tools:context=".postfini"
+    android:background="@drawable/butt">
 
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="3dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Les demandes saturées:"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp"
+        android:textSize="25dp"
+        android:textStyle="bold"/>
     <ListView
         android:id="@+id/lview"
         android:layout_width="wrap_content"
@@ -18,7 +29,7 @@
         android:layout_alignBottom="@+id/bottomBar"
         android:layout_alignParentStart="true"
         android:layout_marginStart="0dp"
-        android:layout_marginTop="1dp"
+        android:layout_marginTop="50dp"
         android:layout_marginBottom="50dp">
 
     </ListView>
@@ -44,21 +55,5 @@
 
 
 </RelativeLayout>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 </android.support.constraint.ConstraintLayout>

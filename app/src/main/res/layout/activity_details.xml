@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".details">
+    tools:context=".details"
+    android:background="@drawable/butt">
 
 
 
@@ -30,15 +31,26 @@
         </android.support.design.widget.BottomNavigationView>
     </RelativeLayout>
 
-
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="3dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Liste des donneurs:"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp"
+        android:textSize="25dp"
+        android:textStyle="bold"/>
     <ListView
         android:id="@+id/lview"
-        android:layout_width="385dp"
-        android:layout_height="379dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_alignBottom="@+id/bottomBar"
         android:layout_alignParentStart="true"
         android:layout_marginStart="0dp"
-        android:layout_marginBottom="58dp"
+        android:layout_marginBottom="60dp"
+        android:layout_marginTop="50dp"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="50dp">
 

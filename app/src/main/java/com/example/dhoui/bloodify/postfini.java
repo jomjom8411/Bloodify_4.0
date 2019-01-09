@@ -149,10 +149,10 @@ public class postfini extends AppCompatActivity {
     private  SharedPreference prefconf ;
     String urladdress = "http://192.168.1.6/Blood/finishedposts.php";
     String urladdress2 = "http://192.168.1.6/Blood/displayprofilebyid.php";
-    String[] name;
-    String[] salut;
-    String[] email,number;
-    String[] imagepath;
+    String[] name={};
+    String[] salut={};
+    String[] email={},number={};
+    String[] imagepath={};
     ListView listView;
     BufferedInputStream is,is2;
     String line = null;
@@ -414,48 +414,6 @@ public class postfini extends AppCompatActivity {
 
 
 
-   /* @Override
-    public boolean onCreateOptionsMenu(Menu menu)   {
-        getMenuInflater().inflate(R.menu.menu, menu);
-
-        MenuItem myActionMenuItem = menu.findItem(R.id.action_search);
-        SearchView searchView = (SearchView) myActionMenuItem.getActionView();
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-
-            public boolean onQueryTextSubmit(String s) {
-                return false;
-            }
-
-
-            public boolean onQueryTextChange(String s) {
-                if (TextUtils.isEmpty(s)) {
-                   // customListView.filter("");
-                    //listView.clearTextFilter();
-                } else {
-                  //  customListView.filter(s);
-                }
-                return true;
-            }
-        });
-        return true;
-    }
-
-
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.action_settings) {
-            //do your functionality here
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }   */
-
-
-
-
-
-
 
     private void collectData() {
 //Connection
@@ -641,7 +599,7 @@ public class postfini extends AppCompatActivity {
                     String success = jsonObject.getString("success");
 
                     if (success.equals("1")) {
-                        //   Toast.makeText(getContext(), "Compte crée !", Toast.LENGTH_SHORT).show();
+
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

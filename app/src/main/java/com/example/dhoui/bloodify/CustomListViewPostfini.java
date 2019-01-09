@@ -135,7 +135,7 @@ import java.util.Map;
 
 
 
-                    Toast.makeText(getContext(), "voir details : " + position , Toast.LENGTH_SHORT).show();
+
 
                     getContext().startActivity(intent);
 
@@ -143,7 +143,7 @@ import java.util.Map;
 
 
                    // finalViewHolder.details.setEnabled(false);
-                    Toast.makeText(getContext(), "details" +test, Toast.LENGTH_SHORT).show();
+
 
                 }
             })
@@ -171,7 +171,9 @@ import java.util.Map;
                 ivw2 = (ImageView) v.findViewById(R.id.imageView3);
                 details =v.findViewById(R.id.details);
 
-
+                details.setVisibility(View.VISIBLE);
+                tvw3.setVisibility(View.VISIBLE);
+                ivw2.setVisibility(View.VISIBLE);
 
 
             }

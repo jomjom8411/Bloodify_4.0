@@ -307,7 +307,6 @@ public class CustomListView2 extends ArrayAdapter<String>{
 
 
 
-
         View r=convertView;
         ViewHolder viewHolder=null;
         if(r==null){
@@ -324,11 +323,16 @@ public class CustomListView2 extends ArrayAdapter<String>{
         viewHolder.tvw1.setText(profilename[position]);
         viewHolder.tvw2.setText(email[position]);
         new GetImageFromURL(viewHolder.ivw).execute(imagepath[position]);
+
+        final ViewHolder finalViewHolder = viewHolder;
+
+
         viewHolder.confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 points();
                 confirm(position);
+
                 Notification notification = new NotificationCompat.Builder(getContext(), CHANNEL_1_ID)
                         .setSmallIcon(R.drawable.ic_launcher_background)
                         .setContentTitle("toutes nos félicitations")
@@ -339,7 +343,7 @@ public class CustomListView2 extends ArrayAdapter<String>{
                         .build();
 
                 notificationManager.notify(1, notification);
-                Toast.makeText(getContext(), "confirm donation" , Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Donation confirmée" , Toast.LENGTH_SHORT).show();
                 Intent registerIntent = new Intent(getContext(), HistoriqueConfirme.class);
                 getContext().startActivity(registerIntent);
 
@@ -368,6 +372,7 @@ public class CustomListView2 extends ArrayAdapter<String>{
             tvw2=(TextView)v.findViewById(R.id.tvemail);
             ivw=(ImageView)v.findViewById(R.id.imageView);
             confirm =v.findViewById(R.id.confirm);
+            confirm.setVisibility(View.VISIBLE);
         }
 
 
@@ -457,7 +462,10 @@ public class CustomListView2 extends ArrayAdapter<String>{
 
     private void confirm( final int position) {
 
+        if (email.equals("")) {
 
+
+        }
 
 
         try {
@@ -556,7 +564,6 @@ public class CustomListView2 extends ArrayAdapter<String>{
                             String success = jsonObject.getString("success");
 
                             if (success.equals("1")) {
-                                Toast.makeText(getContext(), "donators numbers!", Toast.LENGTH_SHORT).show();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

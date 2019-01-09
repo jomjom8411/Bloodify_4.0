@@ -99,9 +99,8 @@ public class ProfileActivity extends AppCompatActivity  {
         btn_photo_upload = findViewById(R.id.btn_photo);
         profile_image = findViewById(R.id.profile_image);
         historique = findViewById(R.id.activity);
-           uri=Uri.parse("https://192.168.1.6/blood/profile_image/male.png");
-        profile_image.setImageURI(null);
-        profile_image.setImageURI(uri);
+
+
 
 
         StickySwitch stickySwitch = findViewById(R.id.stickySwitch);
@@ -110,17 +109,19 @@ public class ProfileActivity extends AppCompatActivity  {
             public void onSelectedChange(StickySwitch.Direction direction, String s) {
 
 
-                Toast.makeText(ProfileActivity.this, "Selected " + s, Toast.LENGTH_SHORT).show();
 
-                if(s.equals("Anon")) {
+
+                if(s.equals("Anonyme")) {
                     anonyme();
-                    Toast.makeText(ProfileActivity.this, "yo maan " , Toast.LENGTH_SHORT).show();}
+                     }
 
 
 
                 if(s.equals("Connue")) {
                     Connue();
-                    Toast.makeText(ProfileActivity.this, "yo maan " , Toast.LENGTH_SHORT).show();}
+
+
+                }
             }
         });
 

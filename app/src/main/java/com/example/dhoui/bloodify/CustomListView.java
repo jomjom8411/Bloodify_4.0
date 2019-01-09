@@ -239,7 +239,7 @@ import android.widget.AdapterView;
                 public void onClick(View v) {
                        donate(position);
                 finalViewHolder.donate.setEnabled(false);
-                    Toast.makeText(getContext(), "u have donated" +testpost, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "  Veuillez verifier votre historique de donnation non confirmé" , Toast.LENGTH_SHORT).show();
 
                 }
             })
@@ -266,9 +266,9 @@ import android.widget.AdapterView;
                 ivw = (ImageView) v.findViewById(R.id.imageView);
                 ivw2 = (ImageView) v.findViewById(R.id.imageView3);
                 donate =v.findViewById(R.id.donate);
-
-
-
+                donate.setVisibility(View.VISIBLE);
+                tvw3.setVisibility(View.VISIBLE);
+                ivw2.setVisibility(View.VISIBLE);
 
             }
 
@@ -352,11 +352,11 @@ import android.widget.AdapterView;
                     String success = jsonObject.getString("success");
 
                     if (success.equals("1")) {
-                        Toast.makeText(getContext(), "Compte crée !", Toast.LENGTH_SHORT).show();
+
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(getContext(), "Erreur !" + e.toString(), Toast.LENGTH_SHORT).show();
+
 
                 }
 

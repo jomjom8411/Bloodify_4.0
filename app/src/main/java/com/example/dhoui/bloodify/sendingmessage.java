@@ -1,7 +1,6 @@
 package com.example.dhoui.bloodify;
 
 
-import android.Manifest;
 import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -10,10 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.Build;
-import android.provider.ContactsContract;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -45,7 +41,7 @@ private  String value1;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sendingmessage);
 
-        messageText = (EditText) findViewById(R.id.message);
+        messageText = (EditText) findViewById(R.id.emailtext);
         sendButton = (Button) findViewById(R.id.sendButton);
 
         Intent intent2 = getIntent();

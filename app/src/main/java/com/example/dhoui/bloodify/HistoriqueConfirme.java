@@ -35,9 +35,9 @@ public class HistoriqueConfirme extends AppCompatActivity {
 
 
     String urladdress2 = "http://192.168.1.6/blood/displayposts.php";
-    String[] name;
-    String[] email,email1;
-    String[] imagepath;
+    String[] name={};
+    String[] email={},email1;
+    String[] imagepath={};
     ListView listView;
     BufferedInputStream is;
     String line=null;
@@ -81,7 +81,7 @@ public class HistoriqueConfirme extends AppCompatActivity {
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavView_Bar);
         //BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
         Menu menu = bottomNavigationView.getMenu();
-        MenuItem menuItem = menu.getItem(0);
+        MenuItem menuItem = menu.getItem(4);
         menuItem.setChecked(true);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {

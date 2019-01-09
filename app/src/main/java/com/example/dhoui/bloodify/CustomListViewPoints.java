@@ -151,7 +151,7 @@ import java.util.Locale;
 
 
 
-                    Toast.makeText(getContext(), "voir profile : " + position , Toast.LENGTH_SHORT).show();
+
 
                     getContext().startActivity(intent);
 

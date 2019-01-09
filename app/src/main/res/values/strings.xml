@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">Bloodify</string>
     <string-array name="grpsanguin">
-        <item>Groupe Sanguin</item>
         <item>A+</item>
         <item>A-</item>
         <item>B+</item>
@@ -12,7 +11,6 @@
         <item>O-</item>
     </string-array>
     <string-array name="Regions">
-        <item>Région</item>
         <item>Ariana</item>
         <item>Béja</item>
         <item>Ben arous</item>
@@ -40,7 +38,6 @@
     </string-array>
 
     <string-array name="grpsanguin1">
-        <item>tous type</item>
         <item>A+</item>
         <item>A-</item>
         <item>B+</item>
@@ -61,8 +58,8 @@
         <item>8</item>
         <item>9</item>
         <item>10</item>
-        <item>plus que 10</item>
-        <item>max</item>
+
+
 
     </string-array>
 

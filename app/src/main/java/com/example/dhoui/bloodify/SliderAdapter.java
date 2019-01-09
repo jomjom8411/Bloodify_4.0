@@ -22,28 +22,39 @@ public class SliderAdapter extends PagerAdapter {
     //Arrays
     public int[] slide_images = {
 
-            R.drawable.aa,
-            R.drawable.cc,
-            R.drawable.bb,
-            R.drawable.dd
+            R.drawable.a4,
+            R.drawable.a3,
+            R.drawable.a2,
+            R.drawable.a5,
+            R.drawable.a1,
+            R.drawable.yo,
+            R.drawable.a6
 
     };
 
     public String[] slide_headings = {
 
-            "don",
-            "don",
-            "don ",
-            "don "
+            "Conseil:1",
+            "Conseil:2",
+            "Conseil:3",
+            "Conseil:4",
+            "Conseil:5",
+            "Conseil:6",
+            "Conseil:7",
 
     };
 
     public String[] slide_descs = {
 
-            "de sang",
-            "de sang",
-            "de sang",
-            "de sang"
+            " Tout antécédent d'injection de produits stupéfiants par voie intraveineuse, même remontant à plusieurs années, constitue une contre-indication permanente au don de sang.",
+            "Vous devez peser plus de 50 kg car ce poids minimum garantit votre sécurité.",
+            "Par mesure de précaution, le don de sang n’est pas possible actuellement si vous avez reçu une transfusion sanguine ou une greffe. Attention, il ne faut pas confondre transfusion et perfusion",
+            "Pour éviter tout risque de carence, vous ne pouvez pas donner si vous êtes enceinte. Et vous devez attendre 6 mois après l’accouchement.",
+   "Si vous souffrez d’anémie, vous devez attendre que votre taux d’hémoglobine revienne à la normale pour donner votre sang.",
+       "Le don de sang est possible un jour après un détartrage ou le traitement d’une carie et une semaine après une extraction dentaire.",
+       "Vous ne pouvez pas donner si vous avez eu une relation sexuelle, même protégée, avec plus d’un partenaire au cours des 4 derniers mois. Cette contre-indication ne s’applique pas aux femmes ayant eu des relations sexuelles uniquement avec des femmes."
+
+
     };
 
     @Override

@@ -16,7 +16,12 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
-
+import android.support.design.widget.TextInputLayout;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.util.Patterns;
+import android.view.View;
+import android.widget.Toast;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -24,6 +29,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import java.util.regex.Pattern;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -49,6 +55,19 @@ public class RegisterActivity extends AppCompatActivity {
     private static String URL_REGIST = "http://192.168.1.6/Blood/Register.php";
     private DatePickerDialog.OnDateSetListener mDateListener;
 
+
+    private static final Pattern PASSWORD_PATTERN =
+            Pattern.compile("^" +
+                    //"(?=.*[0-9])" +         //at least 1 digit
+                    //"(?=.*[a-z])" +         //at least 1 lower case letter
+                    //"(?=.*[A-Z])" +         //at least 1 upper case letter
+                    "(?=.*[a-zA-Z])" +      //any letter
+                    "(?=.*[@#$%^&+=])" +    //at least 1 special character
+                    "(?=\\S+$)" +           //no white spaces
+                    ".{4,}" +               //at least 4 characters
+                    "$");
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +84,11 @@ public class RegisterActivity extends AppCompatActivity {
         password = findViewById(R.id.password_Text);
         inscrire_button = findViewById(R.id.inscrire_button);
         progress = findViewById(R.id.progress);
+
+
+
+
+
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.grpsanguin,
                 android.R.layout.simple_spinner_item);
@@ -137,6 +161,16 @@ private void Regist() {
     final int age = Integer.parseInt(this.age.getText().toString().trim());
     final String datedonation = this.datedonation.getText().toString().trim();
     final String password = this.password.getText().toString().trim();
+
+
+
+
+
+
+
+
+
+
 
     StringRequest StringRequest = new StringRequest(Request.Method.POST, URL_REGIST, new Response.Listener<String>() {
         @Override

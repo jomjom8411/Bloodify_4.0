@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".profile_user">
+    tools:context=".profile_user"
+    android:background="@drawable/butt">
 
 <RelativeLayout
     android:layout_width="wrap_content"
@@ -41,11 +42,12 @@
         android:layout_height="29dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="44dp"
-        android:layout_marginTop="29dp"
+        android:layout_marginStart="170dp"
+        android:layout_marginTop="405dp"
         android:text="okk"
         tools:layout_editor_absoluteX="66dp"
-        tools:layout_editor_absoluteY="121dp" />
+        tools:layout_editor_absoluteY="121dp"
+        />
 </RelativeLayout>
 
 
@@ -59,7 +61,7 @@
         android:layout_height="120dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="146dp"
+        android:layout_marginStart="130dp"
         android:layout_marginTop="46dp"
         app:srcCompat="@drawable/ic_account_circle_black_24dp"
         tools:layout_editor_absoluteX="156dp"
@@ -77,13 +79,22 @@
             android:id="@+id/nom"
             android:layout_width="72dp"
             android:layout_height="28dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
             android:layout_marginTop="201dp"
-            android:layout_marginEnd="194dp"
+            android:layout_marginStart="230dp"
             android:text="nom"
             tools:layout_editor_absoluteX="216dp"
-            tools:layout_editor_absoluteY="204dp" />
+            tools:layout_editor_absoluteY="204dp"
+            />
+        <TextView
+
+            android:layout_width="112dp"
+            android:layout_height="21dp"
+            android:layout_marginTop="201dp"
+            android:layout_marginStart="23dp"
+            android:text="Nom: "
+            tools:layout_editor_absoluteX="94dp"
+            tools:layout_editor_absoluteY="245dp"
+            android:textStyle="bold"/>
 
         <ImageView
             android:id="@+id/imageView5"
@@ -91,8 +102,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="76dp"
-            android:layout_marginTop="25dp"
+            android:layout_marginStart="200dp"
+            android:layout_marginTop="400dp"
             app:srcCompat="@drawable/points" />
     </RelativeLayout>
 
@@ -106,11 +117,21 @@
             android:layout_height="28dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="198dp"
-            android:layout_marginTop="199dp"
+            android:layout_marginStart="230dp"
+            android:layout_marginTop="240dp"
             android:text="prenom"
             tools:layout_editor_absoluteX="205dp"
             tools:layout_editor_absoluteY="199dp" />
+        <TextView
+
+            android:layout_width="112dp"
+            android:layout_height="21dp"
+            android:layout_marginTop="240dp"
+            android:layout_marginStart="23dp"
+            android:text="Prénom: "
+            tools:layout_editor_absoluteX="94dp"
+            tools:layout_editor_absoluteY="245dp"
+            android:textStyle="bold"/>
     </RelativeLayout>
 
 
@@ -123,13 +144,21 @@
             android:id="@+id/tel"
             android:layout_width="112dp"
             android:layout_height="21dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="252dp"
-            android:layout_marginEnd="164dp"
+            android:layout_marginTop="280dp"
+            android:layout_marginStart="230dp"
             android:text="tel"
             tools:layout_editor_absoluteX="94dp"
             tools:layout_editor_absoluteY="245dp" />
+        <TextView
+
+            android:layout_width="112dp"
+            android:layout_height="21dp"
+            android:layout_marginTop="280dp"
+            android:layout_marginStart="23dp"
+            android:text="Téléphone: "
+            tools:layout_editor_absoluteX="94dp"
+            tools:layout_editor_absoluteY="245dp"
+            android:textStyle="bold"/>
 
 
     </RelativeLayout>
@@ -145,22 +174,38 @@
             android:id="@+id/email"
             android:layout_width="112dp"
             android:layout_height="21dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="284dp"
-            android:layout_marginEnd="151dp"
+            android:layout_marginTop="320dp"
+            android:layout_marginStart="230dp"
             android:text="email"
             tools:layout_editor_absoluteX="94dp"
             tools:layout_editor_absoluteY="245dp" />
+        <TextView
+
+            android:layout_width="112dp"
+            android:layout_height="21dp"
+            android:layout_marginTop="320dp"
+            android:layout_marginStart="23dp"
+            android:text="Email: "
+            tools:layout_editor_absoluteX="94dp"
+            tools:layout_editor_absoluteY="245dp"
+            android:textStyle="bold"/>
+        <TextView
+
+            android:layout_width="112dp"
+            android:layout_height="21dp"
+            android:layout_marginTop="400dp"
+            android:layout_marginStart="23dp"
+            android:text="Score: "
+            tools:layout_editor_absoluteX="94dp"
+            tools:layout_editor_absoluteY="245dp"
+            android:textStyle="bold"/>
 
         <ImageView
             android:id="@+id/rank"
             android:layout_width="76dp"
             android:layout_height="89dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="37dp"
-            android:layout_marginTop="66dp"
+            android:layout_marginTop="370dp"
+            android:layout_marginStart="260dp"
             app:srcCompat="@drawable/bronze" />
 
         <ImageView
@@ -169,17 +214,17 @@
             android:layout_height="44dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="69dp"
-            android:layout_marginEnd="21dp"
+            android:layout_marginTop="89dp"
+            android:layout_marginEnd="60dp"
             app:srcCompat="@drawable/call" />
 
         <ImageView
-            android:id="@+id/message"
+            android:id="@+id/emailtext"
             android:layout_width="44dp"
             android:layout_height="50dp"
             android:layout_alignBottom="@+id/call"
             android:layout_alignParentEnd="true"
-            android:layout_marginEnd="91dp"
+            android:layout_marginEnd="270dp"
             android:layout_marginBottom="-6dp"
             app:srcCompat="@drawable/ic_message_black_24dp" />
 

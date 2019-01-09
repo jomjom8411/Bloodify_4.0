@@ -8,6 +8,8 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 
 import org.json.JSONArray;
@@ -24,9 +26,9 @@ public class Historique_activity extends AppCompatActivity {
 
 
     String urladdress2 = "http://192.168.1.6/blood/displayposts.php";
-    String[] name;
-    String[] email,email1;
-    String[] imagepath;
+    String[] name={};
+    String[] email={},email1={};
+    String[] imagepath={};
     ListView listView;
     BufferedInputStream is;
     String line=null;
@@ -35,6 +37,7 @@ public class Historique_activity extends AppCompatActivity {
     String[] test, test2, test3;
     String getId,getName;
     SessionManager sessionManager;
+    Button confirm;
     String urladdress="http://192.168.1.6/blood/posts_that_a_user_wants_to_donate_on_but_not_confirmed.php?id_user=";
 
     @Override
@@ -70,7 +73,7 @@ public class Historique_activity extends AppCompatActivity {
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavView_Bar);
         //BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
         Menu menu = bottomNavigationView.getMenu();
-        MenuItem menuItem = menu.getItem(0);
+        MenuItem menuItem = menu.getItem(4);
         menuItem.setChecked(true);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -203,9 +206,6 @@ public class Historique_activity extends AppCompatActivity {
             ex.printStackTrace();
 
         }
-
-
-
 
 
 
