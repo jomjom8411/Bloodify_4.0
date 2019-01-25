@@ -25,7 +25,7 @@ import java.util.HashMap;
 public class Historique_activity extends AppCompatActivity {
 
 
-    String urladdress2 = "http://192.168.1.6/blood/displayposts.php";
+    String urladdress2 = "http://192.168.1.3/blood/displayposts.php";
     String[] name={};
     String[] email={},email1={};
     String[] imagepath={};
@@ -38,7 +38,7 @@ public class Historique_activity extends AppCompatActivity {
     String getId,getName;
     SessionManager sessionManager;
     Button confirm;
-    String urladdress="http://192.168.1.6/blood/posts_that_a_user_wants_to_donate_on_but_not_confirmed.php?id_user=";
+    String urladdress="http://192.168.1.3/blood/posts_that_a_user_wants_to_donate_on_but_not_confirmed.php?id_user=";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,11 +47,11 @@ public class Historique_activity extends AppCompatActivity {
 
         sessionManager = new SessionManager(this);
         HashMap<String, String> user = sessionManager.getUserDetail();
-        getId = user.get(sessionManager.ID);
-        getName=user.get(sessionManager.NAME);
+        getId = user.get(SessionManager.ID);
+        getName=user.get(SessionManager.NAME);
 
 
-        listView=(ListView)findViewById(R.id.lview);
+        listView=findViewById(R.id.lview);
 
         StrictMode.setThreadPolicy((new StrictMode.ThreadPolicy.Builder().permitNetwork().build()));
         collectData();
@@ -70,7 +70,7 @@ public class Historique_activity extends AppCompatActivity {
 
 
 
-        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavView_Bar);
+        BottomNavigationView bottomNavigationView =  findViewById(R.id.bottomNavView_Bar);
         //BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
         Menu menu = bottomNavigationView.getMenu();
         MenuItem menuItem = menu.getItem(4);
@@ -156,7 +156,7 @@ public class Historique_activity extends AppCompatActivity {
             BufferedReader br=new BufferedReader(new InputStreamReader(is));
             StringBuilder sb=new StringBuilder();
             while ((line=br.readLine())!=null){
-                sb.append(line+"\n");
+                sb.append(line).append("\n");
             }
             is.close();
             result=sb.toString();
@@ -194,9 +194,7 @@ public class Historique_activity extends AppCompatActivity {
         try{
             BufferedReader br=new BufferedReader(new InputStreamReader(is));
             StringBuilder sb=new StringBuilder();
-            while ((line=br.readLine())!=null){
-                sb.append(line+"\n");
-            }
+            while ((line=br.readLine())!=null) sb.append(line).append("\n");
             is.close();
             result2=sb.toString();
 
@@ -217,7 +215,7 @@ public class Historique_activity extends AppCompatActivity {
 
         try{
             JSONArray ja=new JSONArray(result);
-            JSONObject jo=null;
+            JSONObject jo;
             name=new String[ja.length()];
            email=new String[ja.length()];
             imagepath=new String[ja.length()];
@@ -242,7 +240,7 @@ public class Historique_activity extends AppCompatActivity {
 
                     try{
                         JSONArray ja2=new JSONArray(result2);
-                        JSONObject jo2=null;
+                        JSONObject jo2;
 
 
                         test3=new String[ja2.length()];
@@ -259,7 +257,7 @@ public class Historique_activity extends AppCompatActivity {
 
                                 name[i] = getName;
                                 //email[i]=jo.getString("id_post");
-                                imagepath[i] = "http://192.168.1.6/blood/local/waiting.jpg";
+                                imagepath[i] = "http://192.168.1.3/blood/local/waiting.jpg";
                             }
 
 

@@ -5,26 +5,23 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.GestureDetector;
+
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.Spinner;
-import android.widget.TextView;
+
+
+
+
+
+
 import android.widget.ListView;
-import android.text.TextUtils;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.ListView;
-import java.util.ArrayList;
+
+
 import java.io.BufferedInputStream;
 
 import org.json.JSONObject;
 
-import java.util.HashMap;
+
 
 
 import android.os.StrictMode;
@@ -41,9 +38,9 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import android.app.Activity;
 
-import com.github.clans.fab.FloatingActionButton;
+
+
 
 
 
@@ -62,43 +59,34 @@ public class classement extends AppCompatActivity {
 
 
 
-    private  SharedPreference prefconf ;
-    String urladdress = "http://192.168.1.6/Blood/rankpoints.php";
-    String urladdress2 = "http://192.168.1.6/Blood/displayprofilebyid.php";
+
+    String urladdress = "http://192.168.1.3/Blood/rankpoints.php";
+
     String[] name;
-    String[] salut;
+
     String[] email,number;
     String[] imagepath;
     ListView listView;
-    BufferedInputStream is,is2;
+    BufferedInputStream is;
     String line = null;
     String result = null;
-    String result2 = null;
-    String[] test, test2, test3;
+
+    String[] test;
     String getId;
-    SessionManager sessionManager;
-    private Spinner region;
-    private Spinner grpsanguin;
-    private Spinner slots;
-    private ImageView mHeartRed;
-    private ImageView  mHeartWhite;
-    private Activity context;
-    private static String URL_DONATE = "http://192.168.1.6/blood/donate2.php";
-    private GestureDetector mGestureDetector;
-    private Heart mHeart;
+
+
 
 
 
     String[] title;
     String[] description;
     int[] icon;
-    ArrayList<Model> arrayList = new ArrayList<Model>();
-    private Button donate;
-    private static String URL_POST = "http://192.168.1.6/blood/addpost.php";
-    private static final String TAG = "HomeActivity ";
-    FloatingActionButton floatingActionButton1,floatingActionButton2;
-    CustomListViewPoints adapter;
-    CustomListViewPoints customListView;
+
+
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -107,15 +95,15 @@ public class classement extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_classement);
-        prefconf = new SharedPreference(getApplicationContext());
-        sessionManager = new SessionManager(this);
-        sessionManager.checkLogin();
 
 
-        HashMap<String, String> user = sessionManager.getUserDetail();
-        getId = user.get(sessionManager.ID);
 
-        listView = (ListView) findViewById(R.id.lview);
+
+
+
+
+
+        listView =  findViewById(R.id.lview);
 
         StrictMode.setThreadPolicy((new StrictMode.ThreadPolicy.Builder().permitNetwork().build()));
         collectData();
@@ -135,17 +123,13 @@ public class classement extends AppCompatActivity {
 
 
 
-        donate = findViewById(R.id.donate);
+
         //  ok = findViewById(R.id.menu_item1);
 
 
 
 
-        floatingActionButton1 = (FloatingActionButton)
-                findViewById(R.id.menu_item1);
 
-        floatingActionButton2 = (FloatingActionButton)
-                findViewById(R.id.menu_item2);
 
 
 
@@ -210,7 +194,7 @@ public class classement extends AppCompatActivity {
 
 
 
-        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavView_Bar);
+        BottomNavigationView bottomNavigationView =  findViewById(R.id.bottomNavView_Bar);
         //BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
         Menu menu = bottomNavigationView.getMenu();
         MenuItem menuItem = menu.getItem(0);
@@ -304,7 +288,7 @@ public class classement extends AppCompatActivity {
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
             StringBuilder sb = new StringBuilder();
             while ((line = br.readLine()) != null) {
-                sb.append(line + "\n");
+                sb.append(line).append("\n");
             }
             is.close();
             result = sb.toString();
@@ -325,7 +309,7 @@ public class classement extends AppCompatActivity {
         try {
             JSONArray ja = new JSONArray(result);
 
-            JSONObject jo = null;
+            JSONObject jo ;
             name = new String[ja.length()];
             email = new String[ja.length()];
             number = new String[ja.length()];

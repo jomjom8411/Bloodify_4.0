@@ -1,5 +1,6 @@
 package com.example.dhoui.bloodify;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -67,8 +68,8 @@ import java.util.Map;
         private GestureDetector mGestureDetector;
         private Heart mHeart;
 
-        private static String URL_DONATE = "http://192.168.1.6/blood/donate2.php";
-    String urladdress = "http://192.168.1.6/blood/displayposts.php";
+        private static String URL_DONATE = "http://192.168.1.3/blood/donate2.php";
+    String urladdress = "http://192.168.1.3/blood/displayposts.php";
 
         public CustomListViewPostfini(Activity context, final String[] profilename, String[] email, String[] imagepath, String[] number ) {
             super(context, R.layout.layoutpostfini, profilename);
@@ -88,6 +89,7 @@ import java.util.Map;
 
         }
 
+        @SuppressLint("InflateParams")
         @NonNull
         @Override
 
@@ -95,12 +97,12 @@ import java.util.Map;
             sessionManager = new SessionManager(getContext());
             sessionManager.checkLogin();
             HashMap<String, String> user = sessionManager.getUserDetail();
-            getId = user.get(sessionManager.ID);
+            getId = user.get(SessionManager.ID);
 
 
 
             View r = convertView;
-            ViewHolder viewHolder = null;
+            ViewHolder viewHolder ;
             if (r == null) {
                 LayoutInflater layoutInflater = context.getLayoutInflater();
                 r = layoutInflater.inflate(R.layout.layoutpostfini, null, true);
@@ -164,11 +166,11 @@ import java.util.Map;
 
 
             ViewHolder(View v) {
-                tvw1 = (TextView) v.findViewById(R.id.tvprofilename);
-                tvw2 = (TextView) v.findViewById(R.id.tvemail);
-                tvw3 = (TextView) v.findViewById(R.id.number);
-                ivw = (ImageView) v.findViewById(R.id.imageView);
-                ivw2 = (ImageView) v.findViewById(R.id.imageView3);
+                tvw1 =  v.findViewById(R.id.tvprofilename);
+                tvw2 =  v.findViewById(R.id.tvemail);
+                tvw3 =  v.findViewById(R.id.number);
+                ivw =  v.findViewById(R.id.imageView);
+                ivw2 =  v.findViewById(R.id.imageView3);
                 details =v.findViewById(R.id.details);
 
                 details.setVisibility(View.VISIBLE);
@@ -180,6 +182,7 @@ import java.util.Map;
 
         }
 
+        @SuppressLint("StaticFieldLeak")
         public class GetImageFromURL extends AsyncTask<String, Void, Bitmap> {
 
             ImageView imgView;

@@ -40,7 +40,18 @@ import java.util.HashMap;
 import java.util.Map;
 import  android.widget.*;
 import android.content.*;
+import android.content.Context;
+import android.content.Intent;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by jaiso on 13-02-2018.
@@ -48,8 +59,12 @@ import android.content.*;
 
 
 
-public class CustomListViewPostdetails extends ArrayAdapter<String>  {
+public class CustomListViewMessages extends ArrayAdapter<String>  {
 
+    Context mContext;
+    LayoutInflater inflater;
+    List<Model> modellist;
+    ArrayList<Model> arrayList;
     private String[] profilename;
     private String[] email;
     private String[] number;
@@ -73,10 +88,10 @@ public class CustomListViewPostdetails extends ArrayAdapter<String>  {
     private static String URL_DONATE = "http://192.168.1.3/blood/donate2.php";
     String urladdress = "http://192.168.1.3/blood/displayposts.php";
 
-    public CustomListViewPostdetails(Activity context, final String[] profilename, String[] email, String[] imagepath, String[] number ) {
-        super(context, R.layout.layoutdetails, profilename);
-        this.context = context;
-        this.profilename = profilename;
+    public CustomListViewMessages(Activity context, final String[] profilename, String[] email, String[] imagepath, String[] number ) {
+        super(context, R.layout.layoutmessage, profilename);this.context = context;
+        this
+                .profilename = profilename;
         this.email = email;
         this.number = number;
         this.imagepath = imagepath;
@@ -104,10 +119,10 @@ public class CustomListViewPostdetails extends ArrayAdapter<String>  {
 
 
         View r = convertView;
-        ViewHolder viewHolder ;
+        ViewHolder viewHolder;
         if (r == null) {
             LayoutInflater layoutInflater = context.getLayoutInflater();
-            r = layoutInflater.inflate(R.layout.layoutdetails, null, true);
+            r = layoutInflater.inflate(R.layout.layoutmessage, null, true);
             viewHolder = new ViewHolder(r);
 
 
@@ -139,15 +154,14 @@ public class CustomListViewPostdetails extends ArrayAdapter<String>  {
         TextView tvw3;
         ImageView ivw;
         ImageView ivw2;
-        Button voirprofile;
 
 
         ViewHolder(View v) {
             tvw1 =  v.findViewById(R.id.tvprofilename);
             tvw2 =  v.findViewById(R.id.tvemail);
             tvw3 =  v.findViewById(R.id.number);
-            ivw =  v.findViewById(R.id.imageView);
-
+            ivw = v.findViewById(R.id.imageView);
+            ivw2 =  v.findViewById(R.id.imageView3);
 
 
 
@@ -194,16 +208,8 @@ public class CustomListViewPostdetails extends ArrayAdapter<String>  {
 
 
 
-    private void donate( final int position) {
 
 
-
-
-
-
-
-
-    }
 
 
 

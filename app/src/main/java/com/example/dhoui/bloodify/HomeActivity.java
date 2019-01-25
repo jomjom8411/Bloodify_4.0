@@ -149,8 +149,8 @@ public class HomeActivity extends AppCompatActivity {
 
 
     private  SharedPreference prefconf ;
-    String urladdress = "http://192.168.1.6/Blood/displaypostshomepage_notfinished.php";
-    String urladdress2 = "http://192.168.1.6/Blood/displayprofilebyid.php";
+    String urladdress = "http://192.168.1.3/Blood/displaypostshomepage_notfinished.php";
+    String urladdress2 = "http://192.168.1.3/Blood/displayprofilebyid.php";
     String[] name = {};
     String[] salut;
     String[] email={},number={};
@@ -169,7 +169,7 @@ public class HomeActivity extends AppCompatActivity {
     private ImageView mHeartRed;
     private ImageView  mHeartWhite;
     private Activity context;
-    private static String URL_DONATE = "http://192.168.1.6/blood/donate2.php";
+    private static String URL_DONATE = "http://192.168.1.3/blood/donate2.php";
     private GestureDetector mGestureDetector;
     private Heart mHeart;
 
@@ -178,10 +178,10 @@ public class HomeActivity extends AppCompatActivity {
     String[] title;
     String[] description;
     int[] icon;
-    ArrayList<Model> arrayList = new ArrayList<Model>();
+    ArrayList<Model> arrayList = new ArrayList<>();
     private Button pub,ok;
     private Button donate;
-    private static String URL_POST = "http://192.168.1.6/blood/addpost.php";
+    private static String URL_POST = "http://192.168.1.3/blood/addpost.php";
     private static final String TAG = "HomeActivity ";
     FloatingActionButton floatingActionButton1,floatingActionButton2;
 
@@ -195,7 +195,7 @@ public class HomeActivity extends AppCompatActivity {
 
 
 
-        mGestureDetector = new GestureDetector(HomeActivity.this, new GestureListener());
+
         super.onCreate(savedInstanceState);
 
 
@@ -231,9 +231,9 @@ public class HomeActivity extends AppCompatActivity {
 
 
         HashMap<String, String> user = sessionManager.getUserDetail();
-        getId = user.get(sessionManager.ID);
+        getId = user.get(SessionManager.ID);
 
-        listView = (ListView) findViewById(R.id.lview);
+        listView =  findViewById(R.id.lview);
 
         StrictMode.setThreadPolicy((new StrictMode.ThreadPolicy.Builder().permitNetwork().build()));
         collectData();
@@ -273,10 +273,10 @@ public class HomeActivity extends AppCompatActivity {
 
 
 
-        floatingActionButton1 = (FloatingActionButton)
+        floatingActionButton1 =
                 findViewById(R.id.menu_item1);
 
-        floatingActionButton2 = (FloatingActionButton)
+        floatingActionButton2 =
                 findViewById(R.id.menu_item2);
 
 
@@ -371,7 +371,7 @@ public class HomeActivity extends AppCompatActivity {
         etUsername.setText(username);
         etAge.setText(age + "");*/
 
-        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavView_Bar);
+        BottomNavigationView bottomNavigationView =  findViewById(R.id.bottomNavView_Bar);
         //BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
         Menu menu = bottomNavigationView.getMenu();
         MenuItem menuItem = menu.getItem(0);
@@ -503,9 +503,7 @@ public class HomeActivity extends AppCompatActivity {
         try {
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
             StringBuilder sb = new StringBuilder();
-            while ((line = br.readLine()) != null) {
-                sb.append(line + "\n");
-            }
+            while ((line = br.readLine()) != null) sb.append(line).append("\n");
             is.close();
             result = sb.toString();
 
@@ -533,7 +531,7 @@ public class HomeActivity extends AppCompatActivity {
             BufferedReader br2 = new BufferedReader(new InputStreamReader(is2));
             StringBuilder sb2 = new StringBuilder();
             while ((line = br2.readLine()) != null) {
-                sb2.append(line + "\n");
+                sb2.append(line).append("\n");
             }
             is2.close();
             result2 = sb2.toString();
@@ -548,7 +546,7 @@ public class HomeActivity extends AppCompatActivity {
         try {
             JSONArray ja = new JSONArray(result);
 
-            JSONObject jo = null;
+            JSONObject jo ;
             name = new String[ja.length()];
             email = new String[ja.length()];
             number = new String[ja.length()];
@@ -566,7 +564,7 @@ public class HomeActivity extends AppCompatActivity {
                 try {
                     JSONArray ja2 = new JSONArray(result2);
 
-                    JSONObject jo2 = null;
+                    JSONObject jo2 ;
 
                     test2 = new String[ja2.length()];
 
@@ -586,7 +584,7 @@ public class HomeActivity extends AppCompatActivity {
                             email[i] = "je  cherche  " + jo.getString("slots") + "  poches de    " + jo.getString("grpsanguin") + " à " + jo.getString("region");
                             number[i]=jo.getString("donors_number");
 
-                            ;
+
 
                         }
 
@@ -648,9 +646,7 @@ public class HomeActivity extends AppCompatActivity {
                     JSONObject jsonObject = new JSONObject(response);
                     String success = jsonObject.getString("success");
 
-                    if (success.equals("1")) {
 
-                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Toast.makeText(HomeActivity.this, "Erreur !" + e.toString(), Toast.LENGTH_SHORT).show();
@@ -668,7 +664,7 @@ public class HomeActivity extends AppCompatActivity {
                     }
                 }) {
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
+            protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
 
                 params.put("id_user", getId);
@@ -700,24 +696,6 @@ public class HomeActivity extends AppCompatActivity {
 
 
 
-    private void testToggle(){
-            mHeartRed.setOnTouchListener(new View.OnTouchListener() {
-                @Override
-                public boolean onTouch(View v, MotionEvent event) {
-
-                    Log.d(TAG, "onTouch: red heart touch detected.");
-                    return mGestureDetector.onTouchEvent(event);
-                }
-            });
-            mHeartWhite.setOnTouchListener(new View.OnTouchListener() {
-                @Override
-                public boolean onTouch(View v, MotionEvent event) {
-
-
-                    return mGestureDetector.onTouchEvent(event);
-                }
-            });
-        }
 
 
 
@@ -725,21 +703,7 @@ public class HomeActivity extends AppCompatActivity {
 
 
 
-    public class GestureListener extends GestureDetector.SimpleOnGestureListener {
-        @Override
-        public boolean onDown(MotionEvent e) {
-            return true;
-        }
 
-        @Override
-        public boolean onDoubleTap(MotionEvent e) {
-
-
-            mHeart.toggleLike();
-
-            return true;
-        }
-    }
 
 
 
@@ -751,14 +715,14 @@ public class HomeActivity extends AppCompatActivity {
     public boolean isConnected(Context context) {
 
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        assert cm != null;
         NetworkInfo netinfo = cm.getActiveNetworkInfo();
 
         if (netinfo != null && netinfo.isConnectedOrConnecting()) {
             android.net.NetworkInfo wifi = cm.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
             android.net.NetworkInfo mobile = cm.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
 
-            if((mobile != null && mobile.isConnectedOrConnecting()) || (wifi != null && wifi.isConnectedOrConnecting())) return true;
-            else return false;
+            return (mobile != null && mobile.isConnectedOrConnecting()) || (wifi != null && wifi.isConnectedOrConnecting());
         } else
             return false;
     }

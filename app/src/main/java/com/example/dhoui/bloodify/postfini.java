@@ -147,8 +147,8 @@ public class postfini extends AppCompatActivity {
 
 
     private  SharedPreference prefconf ;
-    String urladdress = "http://192.168.1.6/Blood/finishedposts.php";
-    String urladdress2 = "http://192.168.1.6/Blood/displayprofilebyid.php";
+    String urladdress = "http://192.168.1.3/Blood/finishedposts.php";
+    String urladdress2 = "http://192.168.1.3/Blood/displayprofilebyid.php";
     String[] name={};
     String[] salut={};
     String[] email={},number={};
@@ -167,7 +167,7 @@ public class postfini extends AppCompatActivity {
     private ImageView mHeartRed;
     private ImageView  mHeartWhite;
     private Activity context;
-    private static String URL_DONATE = "http://192.168.1.6/blood/donate2.php";
+    private static String URL_DONATE = "http://192.168.1.3/blood/donate2.php";
     private GestureDetector mGestureDetector;
     private Heart mHeart;
 
@@ -176,9 +176,9 @@ public class postfini extends AppCompatActivity {
     String[] title;
     String[] description;
     int[] icon;
-    ArrayList<Model> arrayList = new ArrayList<Model>();
+    ArrayList<Model> arrayList = new ArrayList<>();
     private Button donate;
-    private static String URL_POST = "http://192.168.1.6/blood/addpost.php";
+    private static String URL_POST = "http://192.168.1.3/blood/addpost.php";
     private static final String TAG = "HomeActivity ";
     FloatingActionButton floatingActionButton1,floatingActionButton2;
 
@@ -228,9 +228,9 @@ public class postfini extends AppCompatActivity {
 
 
         HashMap<String, String> user = sessionManager.getUserDetail();
-        getId = user.get(sessionManager.ID);
+        getId = user.get(SessionManager.ID);
 
-        listView = (ListView) findViewById(R.id.lview);
+        listView = findViewById(R.id.lview);
 
         StrictMode.setThreadPolicy((new StrictMode.ThreadPolicy.Builder().permitNetwork().build()));
         collectData();
@@ -257,12 +257,6 @@ public class postfini extends AppCompatActivity {
 
 
 
-
-        floatingActionButton1 = (FloatingActionButton)
-                findViewById(R.id.menu_item1);
-
-        floatingActionButton2 = (FloatingActionButton)
-                findViewById(R.id.menu_item2);
 
 
 
@@ -339,7 +333,7 @@ public class postfini extends AppCompatActivity {
 
 
 
-        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavView_Bar);
+        BottomNavigationView bottomNavigationView =  findViewById(R.id.bottomNavView_Bar);
         //BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
         Menu menu = bottomNavigationView.getMenu();
         MenuItem menuItem = menu.getItem(0);
@@ -432,7 +426,7 @@ public class postfini extends AppCompatActivity {
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
             StringBuilder sb = new StringBuilder();
             while ((line = br.readLine()) != null) {
-                sb.append(line + "\n");
+                sb.append(line).append("\n");
             }
             is.close();
             result = sb.toString();
@@ -461,7 +455,7 @@ public class postfini extends AppCompatActivity {
             BufferedReader br2 = new BufferedReader(new InputStreamReader(is2));
             StringBuilder sb2 = new StringBuilder();
             while ((line = br2.readLine()) != null) {
-                sb2.append(line + "\n");
+                sb2.append(line).append("\n");
             }
             is2.close();
             result2 = sb2.toString();
@@ -476,7 +470,7 @@ public class postfini extends AppCompatActivity {
         try {
             JSONArray ja = new JSONArray(result);
 
-            JSONObject jo = null;
+            JSONObject jo ;
             name = new String[ja.length()];
             email = new String[ja.length()];
             number = new String[ja.length()];
@@ -494,7 +488,7 @@ public class postfini extends AppCompatActivity {
                 try {
                     JSONArray ja2 = new JSONArray(result2);
 
-                    JSONObject jo2 = null;
+                    JSONObject jo2 ;
 
                     test2 = new String[ja2.length()];
 
@@ -514,7 +508,7 @@ public class postfini extends AppCompatActivity {
                             email[i] = "a cherché   " + jo.getString("slots") + "  poches de    " + jo.getString("grpsanguin") + " à " + jo.getString("region");
                             number[i]=jo.getString("donors_number");
 
-                            ;
+
 
                         }
 
@@ -598,9 +592,7 @@ public class postfini extends AppCompatActivity {
                     JSONObject jsonObject = new JSONObject(response);
                     String success = jsonObject.getString("success");
 
-                    if (success.equals("1")) {
 
-                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                     //    Toast.makeText(getContext(), "Erreur !" + e.toString(), Toast.LENGTH_SHORT).show();
@@ -618,7 +610,7 @@ public class postfini extends AppCompatActivity {
                     }
                 }) {
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
+            protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
 
                 params.put("id_user", getId);

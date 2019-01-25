@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -15,23 +16,21 @@ import android.widget.TextView;
 
 import java.util.HashMap;
 
-import android.app.ProgressDialog;
+
 import android.content.Context;
-import android.content.Intent;
+
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+
 import android.util.Base64;
 import android.util.Log;
-import android.view.Menu;
+
 import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
+
+
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
-import android.widget.TextView;
+
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -48,30 +47,23 @@ import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.HashMap;
+
 import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import io.ghyeok.stickyswitch.widget.StickySwitch;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.Priority;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.annotation.GlideModule;
-import com.bumptech.glide.module.AppGlideModule;
-import com.bumptech.glide.annotation.GlideModule;
-import com.bumptech.glide.module.AppGlideModule;
+
+
 
 public class ProfileActivity extends AppCompatActivity  {
 
     private SharedPreference prefconf ;
 
     private static final String TAG = "ProfileActivity";
-    private static String URL_READ = "http://192.168.1.6/Blood/read_detail.php";
-    private static String URL_EDIT = "http://192.168.1.6/Blood/editprofile.php";
-    private static String URL_UPLOAD = "http://192.168.1.6/Blood/upload.php";
-    private static String URL_anonyme = "http://192.168.1.6/blood/anonyme.php?Id=";
+    private static String URL_READ = "http://192.168.1.3/Blood/read_detail.php";
+    private static String URL_EDIT = "http://192.168.1.3/Blood/editprofile.php";
+    private static String URL_UPLOAD = "http://192.168.1.3/Blood/upload.php";
+    private static String URL_anonyme = "http://192.168.1.3/blood/anonyme.php?Id=";
     private TextView name, email,prename,age,tel;
     private ImageView rank,logout2;
     SessionManager sessionManager;
@@ -90,7 +82,7 @@ public class ProfileActivity extends AppCompatActivity  {
         prefconf = new SharedPreference(getApplicationContext());
         name = findViewById(R.id.name);
         email = findViewById(R.id.email);
-         points = (TextView) findViewById(R.id.id);
+         points =  findViewById(R.id.id);
         prename = findViewById(R.id.prename);
         age = findViewById(R.id.age);
         tel = findViewById(R.id.tel);
@@ -106,7 +98,7 @@ public class ProfileActivity extends AppCompatActivity  {
         StickySwitch stickySwitch = findViewById(R.id.stickySwitch);
         stickySwitch.setOnSelectedChangeListener(new StickySwitch.OnSelectedChangeListener() {
             @Override
-            public void onSelectedChange(StickySwitch.Direction direction, String s) {
+            public void onSelectedChange(@NonNull StickySwitch.Direction direction, @NonNull String s) {
 
 
 
@@ -134,7 +126,7 @@ public class ProfileActivity extends AppCompatActivity  {
         int rank_id = getResources().getIdentifier("@drawable/bronze", null, this.getPackageName());
         rank.setImageResource(rank_id);
 
-        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavView_Bar);
+        BottomNavigationView bottomNavigationView =  findViewById(R.id.bottomNavView_Bar);
         //   BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
         Menu menu = bottomNavigationView.getMenu();
         MenuItem menuItem = menu.getItem(4);
@@ -146,7 +138,7 @@ public class ProfileActivity extends AppCompatActivity  {
         sessionManager.checkLogin();
 
         HashMap<String, String> user = sessionManager.getUserDetail();
-        getId = user.get(sessionManager.ID);
+        getId = user.get(SessionManager.ID);
 
         logout2= findViewById(R.id.btnlogout);
         logout2.setOnClickListener(new View.OnClickListener() {
@@ -239,15 +231,15 @@ public class ProfileActivity extends AppCompatActivity  {
 
     private void getUserDetail(){
 
-        final ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Loading...");
-        progressDialog.show();
+//        final ProgressDialog progressDialog = new ProgressDialog(this);
+    //    progressDialog.setMessage("Loading...");
+     //   progressDialog.show();
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_READ,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        progressDialog.dismiss();
+                 //       progressDialog.dismiss();
 
 
                         try {
@@ -284,20 +276,20 @@ public class ProfileActivity extends AppCompatActivity  {
 
                                   if (tester> 10 && tester<=30){
 
-                                        rank.setImageDrawable(getResources().getDrawable(R.drawable.silver));
+                                      rank.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.silver, null));
 
                                   }
 
 
                                     if (tester> 30 && tester<=50){
 
-                                        rank.setImageDrawable(getResources().getDrawable(R.drawable.gold));
+                                        rank.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.gold, null));
 
                                     }
 
                                     if (tester> 50 && tester <=70){
 
-                                        rank.setImageDrawable(getResources().getDrawable(R.drawable.plat));
+                                        rank.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.plat, null));
 
                                     }
 
@@ -305,14 +297,14 @@ public class ProfileActivity extends AppCompatActivity  {
 
                                     if (tester> 70 && tester<=100){
 
-                                        rank.setImageDrawable(getResources().getDrawable(R.drawable.diam));
+                                        rank.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.diam, null));
 
                                     }
 
 
                                     if (tester>100){
 
-                                        rank.setImageDrawable(getResources().getDrawable(R.drawable.chall));
+                                        rank.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.chall, null));
 
                                     }
 
@@ -325,7 +317,7 @@ public class ProfileActivity extends AppCompatActivity  {
 
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            progressDialog.dismiss();
+                          //  progressDialog.dismiss();
                             Toast.makeText(ProfileActivity.this, "Error Reading Detail "+e.toString(), Toast.LENGTH_SHORT).show();
                         }
 
@@ -334,13 +326,13 @@ public class ProfileActivity extends AppCompatActivity  {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        progressDialog.dismiss();
+                      //  progressDialog.dismiss();
                         Toast.makeText(ProfileActivity.this, "Error Reading Detail "+error.toString(), Toast.LENGTH_SHORT).show();
                     }
                 })
         {
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
+            protected Map<String, String> getParams() {
                 Map<String, String > params = new HashMap<>();
                 params.put("id", getId);
                 params.put("nom", getId);
@@ -392,6 +384,7 @@ public class ProfileActivity extends AppCompatActivity  {
                 email.setFocusableInTouchMode(true);
 
                 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                assert imm != null;
                 imm.showSoftInput(name, InputMethodManager.SHOW_IMPLICIT);
 
                 action.findItem(R.id.menu_edit).setVisible(false);
@@ -432,15 +425,15 @@ public class ProfileActivity extends AppCompatActivity  {
         final String email = this.email.getText().toString().trim();
         final String id = getId;
 
-        final ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Saving...");
-        progressDialog.show();
+//        final ProgressDialog progressDialog = new ProgressDialog(this);
+   //     progressDialog.setMessage("Saving...");
+     //   progressDialog.show();
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_EDIT,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        progressDialog.dismiss();
+                      //  progressDialog.dismiss();
 
                         try {
 
@@ -456,7 +449,7 @@ public class ProfileActivity extends AppCompatActivity  {
                         } catch (JSONException e) {
                             Log.e(TAG, "onResponse: ", e);
                             e.printStackTrace();
-                            progressDialog.dismiss();
+                     //       progressDialog.dismiss();
                             Toast.makeText(ProfileActivity.this, "Error "+ e.toString(), Toast.LENGTH_SHORT).show();
                         }
 
@@ -465,13 +458,13 @@ public class ProfileActivity extends AppCompatActivity  {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        progressDialog.dismiss();
+                     //   progressDialog.dismiss();
                         Toast.makeText(ProfileActivity.this, "Error "+ error.toString(), Toast.LENGTH_SHORT).show();
                     }
                 })
         {
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
+            protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
                 params.put("nom", name);
                 params.put("prenom", prename);
@@ -524,15 +517,15 @@ public class ProfileActivity extends AppCompatActivity  {
 
     private void UploadPicture(final String id, final String photo) {
 
-        final ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Uploading...");
-        progressDialog.show();
+      //  final ProgressDialog progressDialog = new ProgressDialog(this);
+     //   progressDialog.setMessage("Uploading...");
+      //  progressDialog.show();
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_UPLOAD,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        progressDialog.dismiss();
+                       // progressDialog.dismiss();
 
                         try {
                             JSONObject jsonObject = new JSONObject(response);
@@ -544,7 +537,7 @@ public class ProfileActivity extends AppCompatActivity  {
 
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            progressDialog.dismiss();
+                          //  progressDialog.dismiss();
                             Toast.makeText(ProfileActivity.this, "Try Again!"+e.toString(), Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -552,13 +545,13 @@ public class ProfileActivity extends AppCompatActivity  {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        progressDialog.dismiss();
+                       // progressDialog.dismiss();
                         Toast.makeText(ProfileActivity.this, "Try Again!" + error.toString(), Toast.LENGTH_SHORT).show();
                     }
                 })
         {
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
+            protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
                 params.put("Id", id);
                 params.put("photo", photo);
@@ -579,9 +572,8 @@ public class ProfileActivity extends AppCompatActivity  {
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
 
         byte[] imageByteArray = byteArrayOutputStream.toByteArray();
-        String encodedImage = Base64.encodeToString(imageByteArray, Base64.DEFAULT);
 
-        return encodedImage;
+        return Base64.encodeToString(imageByteArray, Base64.DEFAULT);
     }
 
 
@@ -716,7 +708,7 @@ public class ProfileActivity extends AppCompatActivity  {
                 })
         {
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
+            protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
 
                 params.put("Id", getId);
@@ -777,7 +769,7 @@ public class ProfileActivity extends AppCompatActivity  {
                 })
         {
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
+            protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
 
                 params.put("Id", getId);

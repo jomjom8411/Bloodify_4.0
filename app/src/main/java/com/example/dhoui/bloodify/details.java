@@ -32,9 +32,9 @@ package com.example.dhoui.bloodify;
 public class details extends AppCompatActivity {
 
     private  SharedPreference prefconf ;
-    String urladdress = "http://192.168.1.6/Blood/finishedposts.php";
-    String urladdress2 = "http://192.168.1.6/Blood/getcolumsfromdonatebyidpost.php?id_post=";
-    String urladdress3 = "http://192.168.1.6/Blood/profile_id.php?Id=";
+    String urladdress = "http://192.168.1.3/Blood/finishedposts.php";
+    String urladdress2 = "http://192.168.1.3/Blood/getcolumsfromdonatebyidpost.php?id_post=";
+    String urladdress3 = "http://192.168.1.3/Blood/profile_id.php?Id=";
 
     String[] name={};
     String[] salut;
@@ -58,7 +58,7 @@ public class details extends AppCompatActivity {
     private ImageView mHeartRed;
     private ImageView  mHeartWhite;
     private Activity context;
-    private static String URL_DONATE = "http://192.168.1.6/blood/donate2.php";
+    private static String URL_DONATE = "http://192.168.1.3/blood/donate2.php";
     private GestureDetector mGestureDetector;
     private Heart mHeart;
 
@@ -67,9 +67,9 @@ public class details extends AppCompatActivity {
     String[] title;
     String[] description;
     int[] icon;
-    ArrayList<Model> arrayList = new ArrayList<Model>();
+    ArrayList<Model> arrayList = new ArrayList<>();
     private Button donate;
-    private static String URL_POST = "http://192.168.1.6/blood/addpost.php";
+    private static String URL_POST = "http://192.168.1.3/blood/addpost.php";
     private static final String TAG = "HomeActivity ";
     FloatingActionButton floatingActionButton1,floatingActionButton2;
 
@@ -109,9 +109,9 @@ public class details extends AppCompatActivity {
 
 
         HashMap<String, String> user = sessionManager.getUserDetail();
-        getId = user.get(sessionManager.ID);
+        getId = user.get(SessionManager.ID);
 
-        listView = (ListView) findViewById(R.id.lview);
+        listView =  findViewById(R.id.lview);
 
         StrictMode.setThreadPolicy((new StrictMode.ThreadPolicy.Builder().permitNetwork().build()));
         collectData();
@@ -139,11 +139,7 @@ public class details extends AppCompatActivity {
 
 
 
-        floatingActionButton1 = (FloatingActionButton)
-                findViewById(R.id.menu_item1);
 
-        floatingActionButton2 = (FloatingActionButton)
-                findViewById(R.id.menu_item2);
 
 
 
@@ -216,7 +212,7 @@ public class details extends AppCompatActivity {
 
 
 
-        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavView_Bar);
+        BottomNavigationView bottomNavigationView =  findViewById(R.id.bottomNavView_Bar);
         //BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
         Menu menu = bottomNavigationView.getMenu();
         MenuItem menuItem = menu.getItem(0);
@@ -351,9 +347,7 @@ public class details extends AppCompatActivity {
         try {
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
             StringBuilder sb = new StringBuilder();
-            while ((line = br.readLine()) != null) {
-                sb.append(line + "\n");
-            }
+            while ((line = br.readLine()) != null) sb.append(line).append("\n");
             is.close();
             result = sb.toString();
 
@@ -388,7 +382,7 @@ public class details extends AppCompatActivity {
         try {
             JSONArray ja = new JSONArray(result);
 
-            JSONObject jo = null;
+            JSONObject jo ;
             Intent intent = getIntent();
             String value1 = intent.getStringExtra("position");
             int test = Integer.valueOf(value1);
@@ -417,7 +411,7 @@ public class details extends AppCompatActivity {
                 BufferedReader br2 = new BufferedReader(new InputStreamReader(is2));
                 StringBuilder sb2 = new StringBuilder();
                 while ((line = br2.readLine()) != null) {
-                    sb2.append(line + "\n");
+                    sb2.append(line).append("\n");
                 }
                 is2.close();
                 result2 = sb2.toString();
@@ -438,7 +432,7 @@ public class details extends AppCompatActivity {
             try {
                 JSONArray ja2 = new JSONArray(result2);
 
-                JSONObject jo2 = null;
+                JSONObject jo2 ;
 
                 test2 = new String[ja2.length()];
 
@@ -474,7 +468,7 @@ public class details extends AppCompatActivity {
                         BufferedReader br3 = new BufferedReader(new InputStreamReader(is3));
                         StringBuilder sb3 = new StringBuilder();
                         while ((line = br3.readLine()) != null) {
-                            sb3.append(line + "\n");
+                            sb3.append(line).append("\n");
                         }
                         is3.close();
                         result3 = sb3.toString();
@@ -502,7 +496,7 @@ public class details extends AppCompatActivity {
                     try {
                         JSONArray ja3 = new JSONArray(result3);
 
-                        JSONObject jo3 = null;
+                        JSONObject jo3 ;
                         name = new String[ja2.length()];
                         email = new String[ja2.length()];
                         number = new String[ja2.length()];
@@ -519,7 +513,7 @@ public class details extends AppCompatActivity {
                                 name[i] = "Anonyme";
                                 email[i] = "Anonyme";
                                 number[i] = "Anonyme";
-                                imagepath[i] = "192.168.1.6/blood/profile_image/anonyme_profile.png";
+                                imagepath[i] = "192.168.1.3/blood/profile_image/anonyme_profile.png";
 
 
                             }

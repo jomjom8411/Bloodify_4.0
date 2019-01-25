@@ -1,16 +1,17 @@
 package com.example.dhoui.bloodify;
-import java.util.Arrays;
+
+import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Intent;
+
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.view.Display;
+
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
+
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -18,62 +19,16 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.content.Intent;
+
 
 import java.io.InputStream;
-import java.util.Locale;
 
-import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.view.GestureDetector;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.animation.AccelerateInterpolator;
-import android.view.animation.DecelerateInterpolator;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.ListView;
 
 import java.io.BufferedInputStream;
-import java.util.ArrayList;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.widget.SearchView;
-import android.text.TextUtils;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.ListView;
-import java.util.Arrays;
 
 import com.android.volley.toolbox.StringRequest;
 
-import java.util.ArrayList;
-import android.app.AlertDialog;
-import android.app.DatePickerDialog;
-import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.EditText;
-import android.widget.ProgressBar;
-import android.widget.Spinner;
-import android.widget.Toast;
+
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -87,75 +42,18 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Calendar;
-import android.os.StrictMode;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.widget.ListView;
+
 
 import org.json.JSONArray;
-import org.json.JSONObject;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import android.app.AlertDialog;
-import android.app.DatePickerDialog;
-import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.EditText;
-import android.widget.ProgressBar;
-import android.widget.Spinner;
-import android.widget.Toast;
-
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Calendar;
-import android.app.Activity;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.TextView;
-
-import java.io.InputStream;
-import android.widget.AdapterView;
 
 
 
-
-
-/**
- * Created by jaiso on 13-02-2018.
- */
 
 
 
@@ -181,8 +79,8 @@ import android.widget.AdapterView;
         private GestureDetector mGestureDetector;
         private Heart mHeart;
 
-        private static String URL_DONATE = "http://192.168.1.6/blood/donate2.php";
-    String urladdress = "http://192.168.1.6/blood/displaypostshomepage_notfinished.php";
+        private static String URL_DONATE = "http://192.168.1.3/blood/donate2.php";
+    String urladdress = "http://192.168.1.3/blood/displaypostshomepage_notfinished.php";
 
         public CustomListView(Activity context, final String[] profilename, String[] email, String[] imagepath, String[] number ) {
             super(context, R.layout.layout, profilename);
@@ -202,6 +100,7 @@ import android.widget.AdapterView;
 
         }
 
+        @SuppressLint("InflateParams")
         @NonNull
         @Override
 
@@ -209,12 +108,12 @@ import android.widget.AdapterView;
             sessionManager = new SessionManager(getContext());
             sessionManager.checkLogin();
             HashMap<String, String> user = sessionManager.getUserDetail();
-            getId = user.get(sessionManager.ID);
+            getId = user.get(SessionManager.ID);
 
 
 
             View r = convertView;
-            ViewHolder viewHolder = null;
+            ViewHolder viewHolder ;
             if (r == null) {
                 LayoutInflater layoutInflater = context.getLayoutInflater();
                 r = layoutInflater.inflate(R.layout.layout, null, true);
@@ -260,11 +159,11 @@ import android.widget.AdapterView;
 
 
             ViewHolder(View v) {
-                tvw1 = (TextView) v.findViewById(R.id.tvprofilename);
-                tvw2 = (TextView) v.findViewById(R.id.tvemail);
-                tvw3 = (TextView) v.findViewById(R.id.number);
-                ivw = (ImageView) v.findViewById(R.id.imageView);
-                ivw2 = (ImageView) v.findViewById(R.id.imageView3);
+                tvw1 =  v.findViewById(R.id.tvprofilename);
+                tvw2 =  v.findViewById(R.id.tvemail);
+                tvw3 =  v.findViewById(R.id.number);
+                ivw =  v.findViewById(R.id.imageView);
+                ivw2 =  v.findViewById(R.id.imageView3);
                 donate =v.findViewById(R.id.donate);
                 donate.setVisibility(View.VISIBLE);
                 tvw3.setVisibility(View.VISIBLE);
@@ -274,6 +173,7 @@ import android.widget.AdapterView;
 
         }
 
+        @SuppressLint("StaticFieldLeak")
         public class GetImageFromURL extends AsyncTask<String, Void, Bitmap> {
 
             ImageView imgView;
@@ -331,7 +231,7 @@ import android.widget.AdapterView;
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
             StringBuilder sb = new StringBuilder();
             while ((line = br.readLine()) != null) {
-                sb.append(line + "\n");
+                sb.append(line).append("\n");
             }
             is.close();
             result = sb.toString();
@@ -351,9 +251,6 @@ import android.widget.AdapterView;
                     JSONObject jsonObject = new JSONObject(response);
                     String success = jsonObject.getString("success");
 
-                    if (success.equals("1")) {
-
-                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
 
@@ -373,7 +270,7 @@ import android.widget.AdapterView;
 
 
         @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
+            protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
 
 
@@ -383,7 +280,7 @@ import android.widget.AdapterView;
                 try {
                     JSONArray ja2 = new JSONArray(result);
 
-                    JSONObject jo2 = null;
+                    JSONObject jo2 ;
                     testpost = new String[ja2.length()];
 
                     jo2 = ja2.getJSONObject(position);

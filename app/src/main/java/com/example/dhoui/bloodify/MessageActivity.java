@@ -60,8 +60,8 @@ public class MessageActivity extends AppCompatActivity {
 
 
     private  SharedPreference prefconf ;
-    String urladdress = "http://192.168.1.6/Blood/showmessageforuser.php?email_receiver=";
-    String urladdress2 = "http://192.168.1.6/Blood/profile_id.php?Id=";
+    String urladdress = "http://192.168.1.3/Blood/showmessageforuser.php?email_receiver=";
+    String urladdress2 = "http://192.168.1.3/Blood/profile_id.php?Id=";
     String[] name={};
     String[] salut;
     String[] email={},number={};
@@ -81,19 +81,19 @@ public class MessageActivity extends AppCompatActivity {
     private ImageView mHeartRed;
     private ImageView  mHeartWhite;
     private Activity context;
-    private static String URL_DONATE = "http://192.168.1.6/blood/donate2.php";
+    private static String URL_DONATE = "http://192.168.1.3/blood/donate2.php";
     private GestureDetector mGestureDetector;
     private Heart mHeart;
-    private static String URL_MESSAGE = "http://192.168.1.6/blood/sendmessage.php";
+    private static String URL_MESSAGE = "http://192.168.1.3/blood/sendmessage.php";
 
 
 
     String[] title;
     String[] description;
     int[] icon;
-    ArrayList<Model> arrayList = new ArrayList<Model>();
+    ArrayList<Model> arrayList = new ArrayList<>();
     private Button donate;
-    private static String URL_POST = "http://192.168.1.6/blood/addpost.php";
+    private static String URL_POST = "http://192.168.1.3/blood/addpost.php";
     private static final String TAG = "HomeActivity ";
     FloatingActionButton floatingActionButton1,floatingActionButton2;
     CustomListViewMessages adapter;
@@ -114,8 +114,8 @@ public class MessageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_message);
         prefconf = new SharedPreference(getApplicationContext());
 
-        messagetosend = (EditText) findViewById(R.id.messagetext);
-        emailtosendto = (EditText) findViewById(R.id.emailtext);
+        messagetosend =  findViewById(R.id.messagetext);
+        emailtosendto =  findViewById(R.id.emailtext);
 
 
         String messagetext = messagetosend.getText().toString();
@@ -146,9 +146,9 @@ public class MessageActivity extends AppCompatActivity {
 
 
         HashMap<String, String> user = sessionManager.getUserDetail();
-        getId = user.get(sessionManager.ID);
+        getId = user.get(SessionManager.ID);
 
-        listView = (ListView) findViewById(R.id.lview);
+        listView =  findViewById(R.id.lview);
 
         StrictMode.setThreadPolicy((new StrictMode.ThreadPolicy.Builder().permitNetwork().build()));
         collectData();
@@ -185,11 +185,6 @@ public class MessageActivity extends AppCompatActivity {
 
 
 
-        floatingActionButton1 = (FloatingActionButton)
-                findViewById(R.id.menu_item1);
-
-        floatingActionButton2 = (FloatingActionButton)
-                findViewById(R.id.menu_item2);
 
 
 
@@ -269,7 +264,7 @@ public class MessageActivity extends AppCompatActivity {
 
 
 
-        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavView_Bar);
+        BottomNavigationView bottomNavigationView =  findViewById(R.id.bottomNavView_Bar);
         //BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
         Menu menu = bottomNavigationView.getMenu();
         MenuItem menuItem = menu.getItem(1);
@@ -404,9 +399,7 @@ public class MessageActivity extends AppCompatActivity {
         try {
             BufferedReader br2 = new BufferedReader(new InputStreamReader(is2));
             StringBuilder sb2 = new StringBuilder();
-            while ((line = br2.readLine()) != null) {
-                sb2.append(line + "\n");
-            }
+            while ((line = br2.readLine()) != null) sb2.append(line).append("\n");
             is2.close();
             result2 = sb2.toString();
 
@@ -423,7 +416,7 @@ public class MessageActivity extends AppCompatActivity {
         try {
             JSONArray ja2 = new JSONArray(result2);
 
-            JSONObject jo2 = null;
+            JSONObject jo2  ;
             jo2 = ja2.getJSONObject(0);
 
             String email_user=jo2.getString("Email");
@@ -449,7 +442,7 @@ public class MessageActivity extends AppCompatActivity {
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
             StringBuilder sb = new StringBuilder();
             while ((line = br.readLine()) != null) {
-                sb.append(line + "\n");
+                sb.append(line).append("\n");
             }
             is.close();
             result = sb.toString();
@@ -486,7 +479,7 @@ public class MessageActivity extends AppCompatActivity {
         try {
             JSONArray ja = new JSONArray(result);
 
-            JSONObject jo = null;
+            JSONObject jo ;
             name = new String[ja.length()];
             email = new String[ja.length()];
             number = new String[ja.length()];
@@ -518,7 +511,7 @@ public class MessageActivity extends AppCompatActivity {
                 BufferedReader br3 = new BufferedReader(new InputStreamReader(is3));
                 StringBuilder sb3 = new StringBuilder();
                 while ((line = br3.readLine()) != null) {
-                    sb3.append(line + "\n");
+                    sb3.append(line).append("\n");
                 }
                 is3.close();
                 result3 = sb3.toString();
@@ -533,7 +526,7 @@ public class MessageActivity extends AppCompatActivity {
                 try {
                     JSONArray ja3 = new JSONArray(result3);
 
-                    JSONObject jo3 = null;
+                    JSONObject jo3 ;
 
 
                     jo3 = ja3.getJSONObject(0);
@@ -652,9 +645,7 @@ public class MessageActivity extends AppCompatActivity {
                 JSONObject jsonObject = new JSONObject(response);
                 String success = jsonObject.getString("success");
 
-                if (success.equals("1")) {
 
-                }
             } catch (JSONException e) {
                 e.printStackTrace();
                 Toast.makeText(MessageActivity.this, "Erreur !" + e.toString(), Toast.LENGTH_SHORT).show();
@@ -672,7 +663,7 @@ public class MessageActivity extends AppCompatActivity {
                 }
             }) {
         @Override
-        protected Map<String, String> getParams() throws AuthFailureError {
+        protected Map<String, String> getParams() {
             Map<String, String> params = new HashMap<>();
 
 

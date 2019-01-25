@@ -1,9 +1,11 @@
 package com.example.dhoui.bloodify;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Intent;
@@ -32,12 +34,13 @@ public class profile_user extends AppCompatActivity {
 
     private TextView ok,tel,nom,prenom,email;
     private  ImageView profile,rank;
-    String urladdress = "http://192.168.1.6/Blood/rankpoints.php";
+    String urladdress = "http://192.168.1.3/Blood/rankpoints.php";
     BufferedInputStream is,is2;
     String line = null;
     String result = null;
     private static final int REQUEST_CALL = 1;
 
+    @SuppressLint("SetTextI18n")
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,7 +113,7 @@ public class profile_user extends AppCompatActivity {
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
             StringBuilder sb = new StringBuilder();
             while ((line = br.readLine()) != null) {
-                sb.append(line + "\n");
+                sb.append(line).append("\n");
             }
             is.close();
             result = sb.toString();
@@ -127,7 +130,7 @@ public class profile_user extends AppCompatActivity {
         try {
             JSONArray ja = new JSONArray(result);
 
-            JSONObject jo = null;
+            JSONObject jo ;
 
          int test = Integer.valueOf(value1);
 
@@ -172,20 +175,20 @@ public class profile_user extends AppCompatActivity {
 
             if (tester>= 10 && tester<30){
 
-                rank.setImageDrawable(getResources().getDrawable(R.drawable.silver));
+                rank.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.silver, null));
 
             }
 
 
             if (tester>= 30 && tester<50){
 
-                rank.setImageDrawable(getResources().getDrawable(R.drawable.gold));
+                rank.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.gold, null));
 
             }
 
             if (tester>= 50 && tester<70){
 
-                rank.setImageDrawable(getResources().getDrawable(R.drawable.plat));
+                rank.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.plat, null));
 
             }
 
@@ -193,14 +196,14 @@ public class profile_user extends AppCompatActivity {
 
             if (tester>= 70 && tester<100){
 
-                rank.setImageDrawable(getResources().getDrawable(R.drawable.diam));
+                rank.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.diam, null));
 
             }
 
 
             if (tester>=101){
 
-                rank.setImageDrawable(getResources().getDrawable(R.drawable.chall));
+                rank.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.chall, null));
 
             }
 
@@ -241,7 +244,7 @@ public class profile_user extends AppCompatActivity {
 
 
 
-        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavView_Bar);
+        BottomNavigationView bottomNavigationView =  findViewById(R.id.bottomNavView_Bar);
         //BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
         Menu menu = bottomNavigationView.getMenu();
         MenuItem menuItem = menu.getItem(0);
@@ -327,7 +330,7 @@ public class profile_user extends AppCompatActivity {
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
             StringBuilder sb = new StringBuilder();
             while ((line = br.readLine()) != null) {
-                sb.append(line + "\n");
+                sb.append(line).append("\n");
             }
             is.close();
             result = sb.toString();
@@ -344,7 +347,7 @@ public class profile_user extends AppCompatActivity {
         try {
             JSONArray ja = new JSONArray(result);
 
-            JSONObject jo = null;
+            JSONObject jo ;
             Intent intent = getIntent();
             String value1 = intent.getStringExtra("position");
             int test = Integer.valueOf(value1);
@@ -358,53 +361,18 @@ public class profile_user extends AppCompatActivity {
             String points=jo.getString("points");
 
 
-
-
-
-            String number = te2;
-            if (number.trim().length() > 0) {
+            if (te2.trim().length() > 0) {
 
                 if (ContextCompat.checkSelfPermission(profile_user.this,
                         Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
                     ActivityCompat.requestPermissions(profile_user.this,
                             new String[]{Manifest.permission.CALL_PHONE}, REQUEST_CALL);
                 } else {
-                    String dial = "tel:" + number;
+                    String dial = "tel:" + te2;
                     startActivity(new Intent(Intent.ACTION_CALL, Uri.parse(dial)));
                 }
 
-            } else {
             }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
         } catch (Exception ex) {

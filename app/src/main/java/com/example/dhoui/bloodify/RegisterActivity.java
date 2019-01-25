@@ -29,6 +29,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+
+import java.util.Objects;
 import java.util.regex.Pattern;
 
 import org.json.JSONException;
@@ -52,7 +54,7 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText age;
     private EditText datedonation;
     private EditText password;
-    private static String URL_REGIST = "http://192.168.1.6/Blood/Register.php";
+    private static String URL_REGIST = "http://192.168.1.3/Blood/Register.php";
     private DatePickerDialog.OnDateSetListener mDateListener;
 
 
@@ -98,8 +100,8 @@ public class RegisterActivity extends AppCompatActivity {
                 android.R.layout.simple_spinner_item);
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        grpsanguin.setAdapter(adapter);
-        grpsanguin.getSelectedItem().toString();
+       grpsanguin.setAdapter(adapter);
+       grpsanguin.getSelectedItem().toString();
 
         region.setAdapter(adapter1);
         region.getSelectedItem().toString();
@@ -115,10 +117,10 @@ public class RegisterActivity extends AppCompatActivity {
 
 
                 DatePickerDialog dialog = new DatePickerDialog(
-                        RegisterActivity.this,android.R.style.Theme_Holo_Light_Dialog_MinWidth,mDateListener,year,month,day
+                        RegisterActivity.this,android.R.style.Theme_Material_Light_Dialog_Alert,mDateListener,year,month,day
                 );
 
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
 
             }
@@ -202,7 +204,7 @@ private void Regist() {
             })
     {
         @Override
-        protected Map<String, String> getParams() throws AuthFailureError {
+        protected Map<String, String> getParams() {
             Map<String, String> params = new HashMap<>();
             params.put("nom",nom);
             params.put("prenom",prenom);
