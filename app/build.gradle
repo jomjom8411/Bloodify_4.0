@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.example.dhoui.bloodify"
+        applicationId "com.esprit.bloodify"
         minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
@@ -17,6 +17,7 @@ android {
         }
     }
 }
+
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])

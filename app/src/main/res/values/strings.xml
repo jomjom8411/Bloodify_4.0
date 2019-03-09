@@ -64,7 +64,7 @@
     </string-array>
 
 
-    <string name="login_pref">com.example.dhoui.bloodify_login_pref</string>
-    <string name="login_stat">com.example.dhoui.bloodify_login_stat</string>
+    <string name="login_pref">com.esprit.bloodify_login_pref</string>
+    <string name="login_stat">com.esprit.bloodify_login_stat</string>
 
 </resources>
